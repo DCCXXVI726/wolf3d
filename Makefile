@@ -6,13 +6,13 @@
 #    By: thorker <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 17:25:57 by thorker           #+#    #+#              #
-#    Updated: 2019/02/10 17:26:42 by thorker          ###   ########.fr        #
+#    Updated: 2019/02/10 19:10:39 by thorker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = wolf3d
-FLAG = -Wall -Wextra -Werror
-SRC = 
+FLAG = -Wall -Wextra -Werror -g
+SRC = create_struct.c main.c put_img.c
 INC = -I /usr/local/include -I libft/
 LIB = -L /usr/local/lib -lmlx -L libft/ -lft
 FRWR = -framework OpenGL -framework OpenCL -framework AppKit
@@ -34,7 +34,6 @@ fclean: clean
 re: fclean all
 
 git: clean
-	make -C libft/ git
 	git add --all
 	git status
 	git commit -m "auto git"

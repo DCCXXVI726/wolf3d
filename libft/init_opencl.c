@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 16:10:21 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/10 17:23:13 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/10 19:15:22 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,5 @@ t_opencl		*init_opencl(char *name_file, char *name_func)
 			0, &(ft_opencl->error));
 	check_error_n_exit(ft_opencl->error, "CreateCommandQueue problem");
 	init_opencl2(ft_opencl, name_func);
-	return (0);
+	return (ft_opencl);
 }
