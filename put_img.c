@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 18:24:44 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/14 16:46:53 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/14 16:58:06 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ static void		set_kernel_arg(t_wolf *wolf)
 {
 	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 0, sizeof(cl_mem),
 			&(wolf->ft_opencl->memobj));
+	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 1, sizeof(char *) * wolf_limit,
+			&(wolf->ft_opencl->map));
+	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 2, sizeof(int),
+			&(wolf->ft_opencl->width));
 	check_error_n_exit(wolf->ft_opencl->error, "SetKernelArg problem");
 }
 
