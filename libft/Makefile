@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thorker <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/22 17:47:33 by thorker           #+#    #+#              #
-#    Updated: 2019/02/10 16:56:46 by thorker          ###   ########.fr        #
+#    Updated: 2019/02/14 20:03:21 by bfalmer-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,9 @@ $(NAME):
 	ranlib $(NAME)
 
 all: $(NAME)
+
+.c.o:
+	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
 	/bin/rm -f $(OBJ)

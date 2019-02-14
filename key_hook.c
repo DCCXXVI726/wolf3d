@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 19:00:12 by bfalmer-          #+#    #+#             */
-/*   Updated: 2019/02/14 19:56:11 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/02/14 20:01:49 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int     player_move(int key, t_wolf *wolf)
 {
     if (key == 13)
     {
-        wolf->player->x -= 10 * cos(wolf->player->angle);
-        wolf->player->y -= 10 * sin(wolf->player->angle);
+        wolf->player->x -= 0.5 * cos(wolf->player->angle);
+        wolf->player->y -= 0.5 * sin(wolf->player->angle);
     }
     if (key == 1)
     {
-        wolf->player->x += 5 * cos(wolf->player->angle);
-        wolf->player->y += 5 * sin(wolf->player->angle);
+        wolf->player->x += 0.5 * cos(wolf->player->angle);
+        wolf->player->y += 0.5 * sin(wolf->player->angle);
     }
     if (key == 0)
         wolf->player->angle -= 5;
