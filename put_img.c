@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 18:24:44 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/14 19:56:39 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/14 20:13:43 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,26 @@ static void		put_player(t_wolf *wolf)
 {
 	int x;
 	int y;
+	int i;
+	int k;
 
 	x = (int)wolf->player->x;
 	y = (int)wolf->player->y;
-	((int*)wolf->start_img1)[y * 50 * 1000 + x * 50] = 0xFF0000;
-	((int*)wolf->start_img1)[(y * 50 + 1) * 1000 + x * 50] = 0xFF0000;
-	((int*)wolf->start_img1)[y * 50 * 1000 + x * 50 + 1] = 0xFF0000;
-	((int*)wolf->start_img1)[(y * 50 + 1) * 1000 + x * 50 + 1] = 0xFF0000;
-
+	k = -5;
+	ft_putnbrln(x);
+	ft_putnbrln(y);
+	while (k < 5)
+	{
+		i = -5;
+		while (i < 5)
+		{
+			if ((i + x >= 0) && (i + x < 1000) && (k + y >= 0) && (k + y < 1000))
+				((int*)wolf->start_img1)[(y + k)  * 1000 + x + i] = 0xFF0000;
+			i++;
+		}
+		k++;
+	}
 }
-
 static void		set_kernel_arg(t_wolf *wolf)
 {
 	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 0, sizeof(cl_mem),
