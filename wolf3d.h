@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:42:34 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/14 20:11:13 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/02/14 20:28:21 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include "libft/libft.h"
 # include <mlx.h>
 # include <math.h>
+# define ANGLE 0.1
+# define STEP 0.5
 
 typedef struct  s_player
 {
