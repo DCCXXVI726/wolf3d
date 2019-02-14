@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/14 16:47:21 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/14 17:22:54 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static void	read_map(t_wolf *new, char *name)
 		free(old_tmp);
 		free(line);
 	}
-	new->heidth = ft_strlen(tmp) / new->width;
+	new->heigth = ft_strlen(tmp) / new->width;
 	if (ft_strlen(tmp) == 0)
-		ft_strdel(tmp);
+		ft_strdel(&tmp);
 	close(fd);
 	new->map = tmp;
 }
@@ -70,6 +70,7 @@ t_wolf	*create_struct()
 		new->player->y = 3;
 	}
 	init_mlx(new);
-	new->limit = new->height * new->width;
+	read_map(new, "map");
+	new->limit = new->heigth * new->width;
 	return(new);
 }
