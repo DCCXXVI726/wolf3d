@@ -6,7 +6,7 @@
 #    By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 17:25:57 by thorker           #+#    #+#              #
-#    Updated: 2019/02/14 18:09:16 by bfalmer-         ###   ########.fr        #
+#    Updated: 2019/02/14 18:19:36 by bfalmer-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,28 +17,27 @@ INC = -I /usr/local/include -I libft/
 LIB = -L /usr/local/lib -lmlx -L libft/ -lft
 FRWR = -framework OpenGL -framework OpenCL -framework AppKit
 
-.PHONY: all clean fclean re
-
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	make lib_ft
-	$(CC) $(FLAGS) $(OBJS) -I $(INC) $(LIB) $(FRWR) -o $(NAME)
+$(NAME):
+	make -C libft
+	gcc $(FLAG) $(INC) $(LIB) $(SRC) $(FRWR) -o $(NAME)
 
 .c.o:
 	$(CC) $(FLAGS) -c $< -o $@
 
-lib_ft:
-	make -C libft
-
 clean:
-	/bin/rm -f *.o
 	make -C libft/ clean
+	rm -f *.o
 
-fclean: 
+fclean:
+	rm -f $(NAME)
 	make clean
 	make -C libft/ fclean
-	/bin/rm -f $(NAME)
+	
+re:
+	make fclean
+	make
 
 git: clean
 	git add --all
