@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 18:24:44 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/10 19:08:20 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/14 16:46:53 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void		fill_color(t_wolf *wolf)
 int		put_img(t_wolf *wolf)
 {
 	wolf->ft_opencl->memobj = clCreateBuffer(wolf->ft_opencl->context, CL_MEM_WRITE_ONLY,
-			wolf->limit * sizeof(int), NULL, &(wolf->ft_opencl->error));
+			1000 * 1000 * sizeof(int), NULL, &(wolf->ft_opencl->error));
 	check_error_n_exit(wolf->ft_opencl->error, "CreateBuffer problem");
 	fill_color(wolf);
 	mlx_put_image_to_window(wolf->mlx_ptr, wolf->win_ptr, wolf->img1_ptr, 0, 0);

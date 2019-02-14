@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:42:34 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/10 19:06:35 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/14 16:13:57 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define WOLF3D_H
 # include "libft.h"
 # include <mlx.h>
+
+typedef struct  s_player
+{
+	double      x;
+	double      y;
+	double      angle;
+}               t_player;
+
 typedef	struct	s_wolf
 {
 	void		*mlx_ptr;
@@ -29,6 +37,10 @@ typedef	struct	s_wolf
 	int			endian;
 	t_opencl	*ft_opencl;
 	size_t		limit;
+	t_player	*player;
+	int			width;
+	int			heigth;
+	char		*map;
 }				t_wolf;
 
 int				put_img(t_wolf *wolf);
