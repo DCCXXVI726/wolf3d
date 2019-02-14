@@ -1,4 +1,4 @@
-__kernel void wolf(__global char* string, char map, int width)
+__kernel void wolf(__global char* string, __global char* map, int width)
 {
 	int i;
 	int x;
@@ -10,7 +10,7 @@ __kernel void wolf(__global char* string, char map, int width)
 	i = get_global_id(0);
 	x = i % width;
     y = i / width;
-    if (map  == '0')
+    if (*(map + i)  == '0')
         color = 255;
     else
         color = 255 * 256;

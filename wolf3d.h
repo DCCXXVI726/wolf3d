@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:42:34 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/14 17:37:22 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/14 18:23:32 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ typedef	struct	s_wolf
 	t_player	*player;
 	int			width;
 	int			heigth;
-	char		map;
+	char		*map;
+	cl_mem		cl_map;
 }				t_wolf;
 
 int				put_img(t_wolf *wolf);

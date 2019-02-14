@@ -6,12 +6,12 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/14 17:55:28 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/14 18:02:03 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
-/*
+
 static void	read_map(t_wolf *new, char *name)
 {
 	char	*tmp;
@@ -39,7 +39,7 @@ static void	read_map(t_wolf *new, char *name)
 	close(fd);
 	new->map = tmp;
 }
-*/
+
 static void	init_mlx(t_wolf *new)
 {
 	new->mlx_ptr = mlx_init();
@@ -70,9 +70,7 @@ t_wolf	*create_struct()
 		new->player->y = 3;
 	}
 	init_mlx(new);
-	//read_map(new, "map");
-	new->map = '0';
-	new->width = 10;
-	new->limit = 10 * 10;
+	read_map(new, "map");
+	new->limit = new->width * new->heigth;
 	return(new);
 }
