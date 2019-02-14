@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:42:34 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/14 18:23:32 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/14 19:00:49 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,6 @@ typedef	struct	s_wolf
 
 int				put_img(t_wolf *wolf);
 t_wolf			*create_struct();
+void    		hook(t_wolf *wolf);
+int     		key_press(int key, t_wolf *wolf);
 #endif
