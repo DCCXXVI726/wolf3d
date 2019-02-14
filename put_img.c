@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 18:24:44 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/14 19:17:00 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/14 19:56:39 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ static void		put_player(t_wolf *wolf)
 	x = (int)wolf->player->x;
 	y = (int)wolf->player->y;
 	((int*)wolf->start_img1)[y * 50 * 1000 + x * 50] = 0xFF0000;
+	((int*)wolf->start_img1)[(y * 50 + 1) * 1000 + x * 50] = 0xFF0000;
+	((int*)wolf->start_img1)[y * 50 * 1000 + x * 50 + 1] = 0xFF0000;
+	((int*)wolf->start_img1)[(y * 50 + 1) * 1000 + x * 50 + 1] = 0xFF0000;
+
 }
 
 static void		set_kernel_arg(t_wolf *wolf)
