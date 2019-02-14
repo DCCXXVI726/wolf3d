@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 __kernel void wolf(__global char* string, __global char* map, int width, double player_x, double player_y)
+=======
+__kernel void wolf( __global char* string,
+                    __global char* map,
+                    int width,
+                    int x,
+                    int y)
+>>>>>>> edcf4998aafe42234ee94cf55c5c867985e7fb8a
 {
 	int i;
 	int x;
