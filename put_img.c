@@ -6,11 +6,21 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 18:24:44 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/14 18:32:50 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/14 19:17:00 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+
+static void		put_player(t_wolf *wolf)
+{
+	int x;
+	int y;
+
+	x = (int)wolf->player->x;
+	y = (int)wolf->player->y;
+	((int*)wolf->start_img1)[y * 50 * 1000 + x * 50] = 0xFF0000;
+}
 
 static void		set_kernel_arg(t_wolf *wolf)
 {
@@ -43,11 +53,15 @@ int		put_img(t_wolf *wolf)
 {
 	wolf->ft_opencl->memobj = clCreateBuffer(wolf->ft_opencl->context, CL_MEM_WRITE_ONLY,
 			1000 * 1000 * sizeof(int), NULL, &(wolf->ft_opencl->error));
+	check_error_n_exit(wolf->ft_opencl->error, "CreateBuffer problem");
 	wolf->cl_map = clCreateBuffer(wolf->ft_opencl->context, CL_MEM_WRITE_ONLY,
 			wolf->limit, NULL, &(wolf->ft_opencl->error));
-	wolf->ft_opencl->error = clEnqueueWriteBuffer(wolf->ft_opencl->command_queue, wolf->cl_map, CL_TRUE, 0, wolf->limit, wolf->map, 0, 0, 0);
 	check_error_n_exit(wolf->ft_opencl->error, "CreateBuffer problem");
+	wolf->ft_opencl->error = clEnqueueWriteBuffer(wolf->ft_opencl->command_queue, wolf->cl_map,
+			CL_TRUE, 0, wolf->limit, wolf->map, 0, 0, 0);
+	check_error_n_exit(wolf->ft_opencl->error, "WriteBuffer problem");
 	fill_color(wolf);
+	put_player(wolf);
 	mlx_put_image_to_window(wolf->mlx_ptr, wolf->win_ptr, wolf->img1_ptr, 0, 0);
 	return (0);
 }
