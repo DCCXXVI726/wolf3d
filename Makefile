@@ -6,7 +6,7 @@
 #    By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 17:25:57 by thorker           #+#    #+#              #
-#    Updated: 2019/02/14 19:01:01 by bfalmer-         ###   ########.fr        #
+#    Updated: 2019/02/14 19:30:26 by thorker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,8 @@ re:
 	make fclean
 	make
 
-git: clean
+git_%: clean
 	git add --all
 	git status
-	git commit -m "auto git"
+	git commit -m "$@"
 	git push
