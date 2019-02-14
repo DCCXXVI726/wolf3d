@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 18:24:44 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/14 20:30:04 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/14 21:00:53 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ static void		set_kernel_arg(t_wolf *wolf)
 			&(wolf->cl_map));
 	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 2, sizeof(int),
 			&(wolf->width));
+	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 3, sizeof(double),
+			&(wolf->player->x));
+	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 4, sizeof(double),
+			&(wolf->player->y));
 	check_error_n_exit(wolf->ft_opencl->error, "SetKernelArg problem");
 }
 

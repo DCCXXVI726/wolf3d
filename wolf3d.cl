@@ -1,4 +1,8 @@
-__kernel void wolf(__global char* string, __global char* map, int width)
+__kernel void wolf( __global char* string,
+                    __global char* map,
+                    int width,
+                    int x,
+                    int y)
 {
 	int i;
 	int x;
