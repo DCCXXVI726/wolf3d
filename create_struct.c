@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_struct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/14 19:10:33 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/14 19:37:23 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_wolf	*create_struct()
 		check_error_n_exit(1, "Didn't create player");
 		new->player->x = 3;
 		new->player->y = 3;
+		new->player->angle = 0;
 	}
 	init_mlx(new);
 	read_map(new, "map");
