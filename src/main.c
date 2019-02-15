@@ -6,11 +6,11 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:37:27 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/15 16:59:38 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/02/15 17:08:41 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/wolf3d.h"
+#include "wolf3d.h"
 
 int		main()
 {

@@ -6,11 +6,11 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 19:00:12 by bfalmer-          #+#    #+#             */
-/*   Updated: 2019/02/15 16:55:48 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/02/15 17:21:47 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/wolf3d.h"
+#include "wolf3d.h"
 
 int     player_move(int key, t_wolf *wolf)
 {

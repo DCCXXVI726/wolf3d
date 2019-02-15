@@ -6,14 +6,14 @@
 #    By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 17:25:57 by thorker           #+#    #+#              #
-#    Updated: 2019/02/15 16:50:57 by bfalmer-         ###   ########.fr        #
+#    Updated: 2019/02/15 17:20:50 by thorker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = wolf3d
 FLAG = -Wall -Wextra -Werror -g
 SRC = create_struct.c hook.c kernel.c key_hook.c main.c player.c
-INC = -I /usr/local/include -I libft/
+INC = -I /usr/local/include -I libft/ -I ./includes
 LIB = -L /usr/local/lib -lmlx -L libft/ -lft
 FRWR = -framework OpenGL -framework OpenCL -framework AppKit
 OBJS = $(addprefix objects/, $(SRC:.c=.o))
@@ -29,7 +29,7 @@ $(NAME): $(OBJ_DIR) $(OBJS)
 	$(CC) $(FLAG) $(OBJS) $(INC) $(LIB) $(FRWR) -o $(NAME)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@$(CC) $(FLAGS) -c $^ -o $@
+	@$(CC) $(FLAG) $(INC) -c $^ -o $@
 
 lib_ft:
 	make -C libft

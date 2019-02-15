@@ -6,13 +6,13 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/15 16:58:19 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/15 17:17:31 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLF3D_H
 # define WOLF3D_H
-# include "../libft/libft.h"
+# include "libft.h"
 # include <mlx.h>
 # include <math.h>
 # define ANGLE 0.1

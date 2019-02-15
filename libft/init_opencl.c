@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 16:10:21 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/14 17:41:51 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/15 17:07:25 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char        *load_kernel(char *name)
 
 	tmp = ft_strnew(0);
 	if ((fd = open(name, O_RDONLY)) < 0)
-		check_error_n_exit(1, "Didn't open file");
+		check_error_n_exit(1, "Didn't open file opencl");
 	while ((gnl = get_next_line(fd, &line)) != 0)
 	{
 		if (gnl < 0)

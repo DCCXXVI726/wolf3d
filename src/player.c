@@ -6,11 +6,11 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 13:07:41 by bfalmer-          #+#    #+#             */
-/*   Updated: 2019/02/15 17:00:01 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/02/15 17:22:05 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/wolf3d.h"
+#include "wolf3d.h"
 
 void		put_player(t_wolf *wolf)
 {

@@ -6,11 +6,11 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/15 16:58:16 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/02/15 17:26:03 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/wolf3d.h"
+#include "wolf3d.h"
 
 static void	read_map(t_wolf *new, char *name)
 {
@@ -22,7 +22,7 @@ static void	read_map(t_wolf *new, char *name)
 
 	tmp = ft_strnew(0);
 	if ((fd = open(name, O_RDONLY)) < 0)
-		check_error_n_exit(1, "Didn't open file");
+		check_error_n_exit(1, "Didn't open file map");
 	while ((gnl = get_next_line(fd, &line)) != 0)
 	{
 		if (gnl == -1)
