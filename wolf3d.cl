@@ -1,4 +1,3 @@
-//написать функцию для рисования 4х угольника с любыми вершинами сторонами
 __kernel void wolf( __global char* string,
                     __global char* map,
                     int width,
@@ -11,7 +10,11 @@ __kernel void wolf( __global char* string,
     int color;
     int put_x;
     int put_y;
+	int x0;
+	int y0;
 
+	x0 = 250;
+	y0 = 250;
 	i = get_global_id(0);
 	x = i % width + (int)player_x;
     y = i / width + (int)player_y;
@@ -26,9 +29,9 @@ __kernel void wolf( __global char* string,
         while (put_x < 50 + (int)player_x)
         {
             if (put_x == (int)player_x || put_y == (int)player_y || put_x == (int)player_x + 49 || put_y == (int)player_y + 49)
-                ((__global unsigned int*) string)[(y * 50 + put_y) * 1000 + (x * 50 + put_x)] = 0;
+                ((__global unsigned int*) string)[(y * 50 + put_y + y0) * 1000 + (x * 50 + put_x) + x0] = 0;
             else
-                ((__global unsigned int*) string)[(y * 50 + put_y) * 1000 + (x * 50 + put_x)] = color;
+                ((__global unsigned int*) string)[(y * 50 + put_y + y0) * 1000 + (x * 50 + put_x) + x0] = color;
             put_x++;
         }
         put_y++;
