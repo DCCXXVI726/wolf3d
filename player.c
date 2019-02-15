@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 13:07:41 by bfalmer-          #+#    #+#             */
-/*   Updated: 2019/02/15 14:21:21 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/02/15 15:53:43 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void		put_player(t_wolf *wolf)
 	x = 500;
 	y = 500;
 	k = -5;
-	ft_putnbrln(x);
-	ft_putnbrln(y);
+	ft_putnbrln((int)wolf->player->x);
+	ft_putnbrln((int)wolf->player->y);
+	ft_putnbrln((int)(wolf->player->angle * 1000));
 	while (k < 5)
 	{
 		i = -5;
@@ -35,8 +36,7 @@ void		put_player(t_wolf *wolf)
 		}
 		k++;
 	}
-	x += 10 * cos(wolf->player->angle);
-	y += 10 * sin(wolf->player->angle);
+	y -= 10;
 	k = -3;
 	while (k < 3)
 	{
