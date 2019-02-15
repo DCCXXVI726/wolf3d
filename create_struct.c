@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/14 21:16:50 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/15 14:21:28 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ static void	init_mlx(t_wolf *new)
 	new->img1_ptr = mlx_new_image(new->mlx_ptr, 1000, 1000);
 	new->start_img1 = mlx_get_data_addr(new->img1_ptr, &(new->bpp),
 			&(new->size_line), &(new->endian));
-	new->img2_ptr = mlx_new_image(new->mlx_ptr, 1000, 1000);
+	/*new->img2_ptr = mlx_new_image(new->mlx_ptr, 1000, 1000);
 	new->start_img2 = mlx_get_data_addr(new->img2_ptr, &(new->bpp),
 			&(new->size_line), &(new->endian));
 	new->img3_ptr = mlx_new_image(new->mlx_ptr, 1000, 1000);
 	new->start_img3 = mlx_get_data_addr(new->img3_ptr, &(new->bpp),
-			&(new->size_line), &(new->endian));
+			&(new->size_line), &(new->endian));*/
 }
 
 t_wolf	*create_struct()

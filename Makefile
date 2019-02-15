@@ -6,13 +6,13 @@
 #    By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 17:25:57 by thorker           #+#    #+#              #
-#    Updated: 2019/02/14 20:20:26 by thorker          ###   ########.fr        #
+#    Updated: 2019/02/15 14:35:29 by bfalmer-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = wolf3d
 FLAG = -Wall -Wextra -Werror -g
-SRC = create_struct.c main.c put_img.c hook.c key_hook.c
+SRC = create_struct.c main.c kernel.c hook.c key_hook.c player.c
 OBJ = $(SRC:.c=.o)
 INC = -I /usr/local/include -I libft/
 LIB = -L /usr/local/lib -lmlx -L libft/ -lft
@@ -26,11 +26,11 @@ $(NAME): $(OBJ)
 	gcc $(FLAG) $(INC) $(LIB) $(SRC) $(FRWR) -o $(NAME)
 
 .c.o:
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(FLAGS) -c $< -o objects/$@
 
 clean:
 	make -C libft/ clean
-	rm -f *.o
+	rm -f objects/*.o
 
 fclean:
 	make clean

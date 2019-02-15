@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:42:34 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/14 20:28:21 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/02/15 14:21:16 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,7 @@ typedef	struct	s_wolf
 	void		*mlx_ptr;
 	void		*win_ptr;
 	void		*img1_ptr;
-	void		*img2_ptr;
-	void		*img3_ptr;
 	char		*start_img1;
-	char		*start_img2;
-	char		*start_img3;
 	int			bpp;
 	int			size_line;
 	int			endian;
@@ -51,4 +47,5 @@ int				put_img(t_wolf *wolf);
 t_wolf			*create_struct();
 void    		hook(t_wolf *wolf);
 int     		key_press(int key, t_wolf *wolf);
+void			put_player(t_wolf *wolf);
 #endif
