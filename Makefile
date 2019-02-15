@@ -6,34 +6,40 @@
 #    By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 17:25:57 by thorker           #+#    #+#              #
-#    Updated: 2019/02/15 14:53:47 by bfalmer-         ###   ########.fr        #
+#    Updated: 2019/02/15 16:50:57 by bfalmer-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = wolf3d
 FLAG = -Wall -Wextra -Werror -g
-SRC = create_struct.c main.c kernel.c hook.c key_hook.c player.c
-OBJ = $(SRC:.c=.o)
+SRC = create_struct.c hook.c kernel.c key_hook.c main.c player.c
 INC = -I /usr/local/include -I libft/
 LIB = -L /usr/local/lib -lmlx -L libft/ -lft
 FRWR = -framework OpenGL -framework OpenCL -framework AppKit
+OBJS = $(addprefix objects/, $(SRC:.c=.o))
+OBJDIR = objects
+SRCDIR = src
+
 .PHONY: all clean fclean re git_%
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	make -C libft
-	gcc $(FLAG) $(INC) $(LIB) $(SRC) $(FRWR) -o $(NAME)
+$(NAME): $(OBJ_DIR) $(OBJS)
+	make lib_ft
+	$(CC) $(FLAG) $(OBJS) $(INC) $(LIB) $(FRWR) -o $(NAME)
 
-.c.o:
-	$(CC) $(FLAGS) -c $< -o objects/$@
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@$(CC) $(FLAGS) -c $^ -o $@
+
+lib_ft:
+	make -C libft
 
 clean:
 	make -C libft/ clean
-	rm -f objects/*.o
+	rm -f $(OBJS)
 
 fclean:
-	make clean
+	rm -f $(OBJS)
 	make -C libft/ fclean
 	rm -f $(NAME)
 	

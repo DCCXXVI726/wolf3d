@@ -6,13 +6,13 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:42:34 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/15 14:21:16 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/02/15 15:27:09 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLF3D_H
 # define WOLF3D_H
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <mlx.h>
 # include <math.h>
 # define ANGLE 0.1
