@@ -6,7 +6,11 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:42:34 by thorker           #+#    #+#             */
+<<<<<<< HEAD:includes/wolf3d.h
 /*   Updated: 2019/02/15 15:27:09 by bfalmer-         ###   ########.fr       */
+=======
+/*   Updated: 2019/02/15 15:35:14 by thorker          ###   ########.fr       */
+>>>>>>> 0acf0185e3b48561a75ff374d77dfcd36980292e:wolf3d.h
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +20,7 @@
 # include <mlx.h>
 # include <math.h>
 # define ANGLE 0.1
-# define STEP 0.5
+# define STEP 5
 
 typedef struct  s_player
 {
