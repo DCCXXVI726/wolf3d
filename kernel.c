@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 18:24:44 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/15 14:21:23 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/02/15 14:51:01 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void		set_kernel_arg(t_wolf *wolf)
 			&(wolf->player->x));
 	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 4, sizeof(double),
 			&(wolf->player->y));
+	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 5, sizeof(double),
+			&(wolf->player->angle));
 	check_error_n_exit(wolf->ft_opencl->error, "SetKernelArg problem");
 }
 

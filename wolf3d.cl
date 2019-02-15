@@ -2,7 +2,7 @@ __kernel void wolf( __global char* string,
                     __global char* map,
                     int width,
                     double player_x,
-                    double player_y)
+                    double player_y, double angle)
 {
 	int i;
 	int x;
@@ -12,7 +12,8 @@ __kernel void wolf( __global char* string,
     int put_y;
 	int x0;
 	int y0;
-
+	int corr;
+	
 	x0 = 250;
 	y0 = 250;
 	i = get_global_id(0);
@@ -28,10 +29,11 @@ __kernel void wolf( __global char* string,
         put_x = player_x;
         while (put_x < 50 + (int)player_x)
         {
+			corr = (-1 * (int)((y * 50 + put_y) * sin(angle)) + (int)((x * 50 + put_x) * cos(angle)) + y0) * 1000 + (int)((x * 50 + put_x) * cos(angle)) + (int)((y * 50 + put_y) * sin(angle)) + x0;
             if (put_x == (int)player_x || put_y == (int)player_y || put_x == (int)player_x + 49 || put_y == (int)player_y + 49)
-                ((__global unsigned int*) string)[(y * 50 + put_y + y0) * 1000 + (x * 50 + put_x) + x0] = 0;
+                ((__global unsigned int*) string)[corr] = 0;
             else
-                ((__global unsigned int*) string)[(y * 50 + put_y + y0) * 1000 + (x * 50 + put_x) + x0] = color;
+                ((__global unsigned int*) string)[corr] = color;
             put_x++;
         }
         put_y++;
