@@ -18,9 +18,9 @@ __kernel void wolf( __global char* string,
 	x_wall = i % width;
 	y_wall = i / width;
 	if (*(map + i) == '0')
-		color = 255;
+		color = 0xC0C0C0;
 	else
-		color = 255 * 256;
+		color = 0x808080;
 	angle = angle + 3.14 / 2;
 	start_x = x_wall * 50 - (int)player_x;
 	start_y = y_wall * 50 - (int)player_y;
