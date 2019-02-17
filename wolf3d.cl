@@ -26,6 +26,7 @@ __kernel void wolf( __global char* string,
 	int color;
 
 	i = get_global_id(0);
+<<<<<<< HEAD
 	flag = 0;
 	angle = main_angle + (i - ((double)iteration) / 2) / iteration * fov;
 	if (sin(angle) > 0)
@@ -128,6 +129,19 @@ __kernel void wolf( __global char* string,
 	height = (int)(100 / p);
 	m = (int)(i / iteration * 1000);
 	while (m < (int)((i + 1) / iteration * 1000))
+=======
+	x_wall = i % width;
+	y_wall = i / width;
+	if (*(map + i) == '0')
+		color = 0xC0C0C0;
+	else
+		color = 0x808080;
+	angle = angle + 3.14 / 2;
+	start_x = x_wall * 50 - (int)player_x;
+	start_y = y_wall * 50 - (int)player_y;
+	put_y = 0;
+	while (put_y < 50)
+>>>>>>> a138af8ce0ee29ab28cd79a7dd836e6db5f3964c
 	{
 		k = (-1) * height / 2;
 		while (k < height / 2)
