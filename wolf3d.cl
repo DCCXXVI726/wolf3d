@@ -1,31 +1,21 @@
 __kernel void wolf( __global char* string,
                     __global char* map,
                     int width,
-                    double x,
-                    double y, double main_angle, double fov, int iteration)
+                    double player_x,
+                    double player_y, double angle)
 {
 	int i;
-	int flag;
-	double x1;
-	double y1;
-	double x2;
-	double y2;
-	double x_step;
-	double y_step;
-	double x_longstep;
-	double y_longstep;
-	double angle;
-	double dx;
-	double dy;
-	double deltax;
-	double deltay;
-	double p;
-	int height;
-	int m;
-	int k;
+	int	x_wall;
+	int	y_wall;
+	int start_x;
+	int start_y;
+	int put_x;
+	int put_y;
+	int coor;
 	int color;
 
 	i = get_global_id(0);
+<<<<<<< HEAD
 <<<<<<< HEAD
 	flag = 0;
 	angle = main_angle + (i - ((double)iteration) / 2) / iteration * fov;
@@ -136,19 +126,31 @@ __kernel void wolf( __global char* string,
 		color = 0xC0C0C0;
 	else
 		color = 0x808080;
+=======
+	x_wall = i % width;
+	y_wall = i / width;
+	if (*(map + i) == '0')
+		color = 255;
+	else
+		color = 255 * 256;
+>>>>>>> parent of afeadcb... ne zapuskai
 	angle = angle + 3.14 / 2;
 	start_x = x_wall * 50 - (int)player_x;
 	start_y = y_wall * 50 - (int)player_y;
 	put_y = 0;
 	while (put_y < 50)
+<<<<<<< HEAD
 >>>>>>> a138af8ce0ee29ab28cd79a7dd836e6db5f3964c
+=======
+>>>>>>> parent of afeadcb... ne zapuskai
 	{
-		k = (-1) * height / 2;
-		while (k < height / 2)
+		put_x = 0;
+		while (put_x < 50)
 		{
-			((__global int*)string)[(k + 500) * 1000 + m] = color;
-			k++;
+			coor = ((int)(((start_y + put_y) * cos(angle) - (start_x + put_x) * sin(angle)) + 500)) * 1000 + (int)((start_x + put_x) * cos(angle) + (start_y + put_y)* sin(angle) + 500);
+			((__global unsigned int*)string)[coor] = color;
+			put_x++;
 		}
-		m++;
+		put_y++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 18:24:44 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/17 16:52:37 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/15 17:21:31 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ static void		set_kernel_arg(t_wolf *wolf)
 			&(wolf->player->y));
 	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 5, sizeof(double),
 			&(wolf->player->angle));
-	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 6, sizeof(double),
-			&(wolf->fov));
-	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 7, sizeof(size_t),
-			&(wolf->iteration));
 	check_error_n_exit(wolf->ft_opencl->error, "SetKernelArg problem");
 }
 
@@ -40,7 +36,7 @@ static void		fill_color(t_wolf *wolf)
 	string = ft_strnew(1000 * 1000 * sizeof(int));
 	set_kernel_arg(wolf);
 	wolf->ft_opencl->error = clEnqueueNDRangeKernel(wolf->ft_opencl->command_queue, wolf->ft_opencl->kernel,
-			1, 0, &(wolf->iteration), 0, 0, 0, 0);
+			1, 0, &(wolf->limit), 0, 0, 0, 0);
 	check_error_n_exit(wolf->ft_opencl->error, "EnqueueNDRangeKernel problem");
 	wolf->ft_opencl->error = clEnqueueReadBuffer(wolf->ft_opencl->command_queue, wolf->ft_opencl->memobj,
 			CL_TRUE, 0, 1000 * 1000 * sizeof(int), string, 0, 0, 0);
