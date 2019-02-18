@@ -17,6 +17,7 @@ __kernel void wolf( __global char* string,
 	i = get_global_id(0);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	flag = 0;
 	angle = main_angle + (i - ((double)iteration) / 2) / iteration * fov;
 	if (sin(angle) > 0)
@@ -134,13 +135,24 @@ __kernel void wolf( __global char* string,
 	else
 		color = 255 * 256;
 >>>>>>> parent of afeadcb... ne zapuskai
+=======
+	x_wall = i % width;
+	y_wall = i / width;
+	if (*(map + i) == '0')
+		color = 255;
+	else
+		color = 255 * 256;
+>>>>>>> parent of afeadcb... ne zapuskai
 	angle = angle + 3.14 / 2;
 	start_x = x_wall * 50 - (int)player_x;
 	start_y = y_wall * 50 - (int)player_y;
 	put_y = 0;
 	while (put_y < 50)
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> a138af8ce0ee29ab28cd79a7dd836e6db5f3964c
+=======
+>>>>>>> parent of afeadcb... ne zapuskai
 =======
 >>>>>>> parent of afeadcb... ne zapuskai
 	{
