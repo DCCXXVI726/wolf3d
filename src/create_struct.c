@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/15 17:26:03 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/18 15:50:22 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_wolf	*create_struct()
 	new->player->y = 3;
 	new->player->angle = 0;
 	init_mlx(new);
-	read_map(new, "map");
+	read_map(new, "map2");
 	new->limit = new->width * new->heigth;
 	return(new);
 }
