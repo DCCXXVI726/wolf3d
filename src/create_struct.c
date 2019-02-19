@@ -71,7 +71,9 @@ t_wolf	*create_struct()
 	new->player->y = 3;
 	new->player->angle = 0;
 	init_mlx(new);
-	read_map(new, "map2");
+	read_map(new, "map");
+	create_new_map(new);
 	new->limit = new->width * new->heigth;
+	new->map = change_map(new);
 	return(new);
 }

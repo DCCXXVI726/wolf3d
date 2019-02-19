@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 13:07:41 by bfalmer-          #+#    #+#             */
-/*   Updated: 2019/02/18 15:35:35 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/15 17:22:05 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,20 @@ void		put_player(t_wolf *wolf)
 		while (i < 5)
 		{
 			if ((i + x >= 0) && (i + x < 1000) && (k + y >= 0) && (k + y < 1000))
-				((int*)wolf->start_img1)[(y + k)  * 1000 + x + i] = 0xFF0000;
+				((int*)wolf->start_img1)[(y + k) * 1000 + x + i] = 0xFF0000;
 			i++;
 		}
 		k++;
 	}
 	y -= 10;
 	k = -3;
-	while (k < 3)
+	while (k < 1)
 	{
 		i = -3;
 		while (i < 3)
 		{
 			if ((i + x >= 0) && (i + x < 1000) && (k + y >= 0) && (k + y < 1000))
-				((int*)wolf->start_img1)[(y + k)  * 1000 + x + i] = 0xFFFF00;
+				((int*)wolf->start_img1)[(y + k) * 1000 + x + i] = 0xFFFF00;
 			i++;
 		}
 		k++;
