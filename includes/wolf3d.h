@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/15 17:17:31 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/19 21:32:02 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <mlx.h>
 # include <math.h>
 # define ANGLE 0.1
-# define STEP 5
+# define STEP 0.4
 
 typedef struct  s_player
 {
@@ -41,6 +41,8 @@ typedef	struct	s_wolf
 	int			heigth;
 	char		*map;
 	cl_mem		cl_map;
+	int			iteration;
+	double		fov;
 }				t_wolf;
 
 int				put_img(t_wolf *wolf);

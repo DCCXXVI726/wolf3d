@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 18:24:44 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/15 17:21:31 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/19 18:06:00 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ static void		set_kernel_arg(t_wolf *wolf)
 			&(wolf->player->y));
 	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 5, sizeof(double),
 			&(wolf->player->angle));
+	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 6, sizeof(double),
+			&(wolf->fov));
+	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 7, sizeof(int),
+			&(wolf->iteration));
+	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 8, sizeof(int),
+			&(wolf->heigth));
 	check_error_n_exit(wolf->ft_opencl->error, "SetKernelArg problem");
 }
 
@@ -51,10 +57,10 @@ int		put_img(t_wolf *wolf)
 			1000 * 1000 * sizeof(int), NULL, &(wolf->ft_opencl->error));
 	check_error_n_exit(wolf->ft_opencl->error, "CreateBuffer problem");
 	wolf->cl_map = clCreateBuffer(wolf->ft_opencl->context, CL_MEM_WRITE_ONLY,
-			wolf->limit, NULL, &(wolf->ft_opencl->error));
+			wolf->heigth * wolf->width, NULL, &(wolf->ft_opencl->error));
 	check_error_n_exit(wolf->ft_opencl->error, "CreateBuffer problem");
 	wolf->ft_opencl->error = clEnqueueWriteBuffer(wolf->ft_opencl->command_queue, wolf->cl_map,
-			CL_TRUE, 0, wolf->limit, wolf->map, 0, 0, 0);
+			CL_TRUE, 0, wolf->heigth * wolf->width, wolf->map, 0, 0, 0);
 	check_error_n_exit(wolf->ft_opencl->error, "WriteBuffer problem");
 	fill_color(wolf);
 	put_player(wolf);
