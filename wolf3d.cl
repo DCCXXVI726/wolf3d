@@ -8,7 +8,7 @@ double ft_abs(double x)
 int	ft_round(double x)
 {
 	if (x - (int)x >= 0.5)
-		return ((int)x + 1);
+		return (((int)x) + 1);
 	return ((int)x);
 }
 
@@ -17,7 +17,7 @@ void	put_line(__global char* string, double x1, double y1, double x2, double y2,
 	double for_swap;
 	double grad;
 
-	if (x1 == x2)
+	if (ft_round(x1) == ft_round(x2))
 	{
         if (y2 < y1)
         {
@@ -30,7 +30,7 @@ void	put_line(__global char* string, double x1, double y1, double x2, double y2,
 			((__global unsigned int*)string)[ft_round(y1) * 1000 + ft_round(x1)] = color;
 			y1++;
 		}
-	} else if (y1 == y2)
+	} else if (ft_round(y1) == ft_round(y2))
     {
         if (x2 < x1)
         {
@@ -43,7 +43,7 @@ void	put_line(__global char* string, double x1, double y1, double x2, double y2,
             ((__global unsigned int*)string)[ft_round(y1) * 1000 + ft_round(x1)] = color;
             x1++;
         }
-    } else if (y2 - y1 > x2 - x1)
+    } else if (ft_abs(y2 - y1) > ft_abs(x2 - x1))
 	{
 		if (y2 < y1)
         {
@@ -102,7 +102,7 @@ __kernel void wolf(__global char* string,
 	double x_step;
 	double y_step;
 	int color;
-	
+	double p;
 	i = get_global_id(0);
 	if (i < width * heigth)
 	{
@@ -124,7 +124,7 @@ __kernel void wolf(__global char* string,
 		x2 = old_x2 * cos(main_angle) - old_y2 * sin(main_angle);
 	    y2 = old_x2 * sin(main_angle) + old_y2 * cos(main_angle);
 		if (*(map + i) != '0')
-			put_line(string, x1 + 500, y1 + 500, x2 + 500, y2 + 500, 0xFF0000);
+			put_line(string, x1 + 200, y1 + 200, x2 + 200, y2 + 200, 0xFF0000);
 	}
 	else
 	{
@@ -147,7 +147,7 @@ __kernel void wolf(__global char* string,
 			y_step = x_step * tan(angle);
 			while (x1 >= 0 && x1 < width && y1 >= 0 && y1 < heigth / 2)
 			{
-				if (*(map + (int)x1 + (((int)y1) * 2 + 1) * width) != '0')
+				if (*(map + ((int)x1) + (((int)y1) * 2 + 1) * width) != '0')
 					break ;
 				y1 = y1 - y_step;
 				x1 = x1 + x_step;
@@ -190,7 +190,7 @@ __kernel void wolf(__global char* string,
 					x_step = 0;
 				}
 			}
-			while (x2 >= 0 && x2 < width - 1 && y2 >= 0 && y2 < heigth / 2)
+			while (x2 >= 0 && x2 < width - 1 && y2 >= 0 && y2 < (heigth / 2))
         	{
         	    if (*(map + (int)x2 + ((int)y2) * 2 * width) != '0')
             	    break ;
@@ -203,30 +203,62 @@ __kernel void wolf(__global char* string,
 			y2 = -1;
 			x2 = -1;
 		}
-		if ((x2 >= 0 && x2 < width - 1 && y2 >= 0 && y2 < heigth / 2) || (x1 >= 0 && x1 < width && y1 >= 0 && y1 < heigth / 2))
+		//main_angle = main_angle - 3.14 / 2;
+		p = 0;
+		if ((x2 >= 0 && x2 < width - 1 && y2 >= 0 && y2 < (heigth / 2)) && !(x1 >= 0 && x1 < width && y1 >= 0 && y1 < (heigth / 2)))
 		{
-			color = 0xFFFF00;
-			if (!(x2 >= 0 && x2 < width - 1 && y2 >= 0 && y2 < heigth / 2))
-			{
-				x2 = x1;
-				y2 = x1;
-				color = 0x0000FF;
-			}
-			else if (x1 >= 0 && x1 < width && y1 >= 0 && y1 < heigth / 2)
-			{
-				if (ft_abs(player_x - x1) < ft_abs(player_x - x2))
-				{
-					x2 = x1;
-					y2 = y1;
-					color = 0x0000FF;
-				}
-			}
-			main_angle = main_angle - 3.14 / 2;
+			p = (x2 - player_x) * cos(main_angle) + (player_y - y2) * sin(main_angle);
+			/*color = 0xFFFF00;
 			old_x2 = (x2 - player_x) * 50;
 			old_y2 = (y2 - player_y) * 50;
 			x2 = old_x2 * cos(main_angle) - old_y2 * sin(main_angle);
         	y2 = old_x2 * sin(main_angle) + old_y2 * cos(main_angle);
-			put_line(string, 500, 500, x2 + 500, y2 + 500, color);
+			put_line(string, 500, 500, x2 + 500, y2 + 500, color);*/
+		}
+		if (x1 >= 0 && x1 < width && y1 >= 0 && y1 < (heigth / 2) && !(x2 >= 0 && x2 < width - 1 && y2 >= 0 && y2 < (heigth / 2)))
+		{
+			p = (x1 - player_x) * cos(main_angle) + (player_y - y1) * sin(main_angle);
+			/*color = 0x0000FF;
+            old_x1 = (x1 - player_x) * 50;
+            old_y1 = (y1 - player_y) * 50;
+            x1 = old_x1 * cos(main_angle) - old_y1 * sin(main_angle);
+            y1 = old_x1 * sin(main_angle) + old_y1 * cos(main_angle);
+            put_line(string, 500, 500, x1 + 500, y1 + 500, color);*/
+		}
+		if (x1 >= 0 && x1 < width && y1 >= 0 && y1 < (heigth / 2) && x2 >= 0 && x2 < width - 1 && y2 >= 0 && y2 < (heigth / 2))
+		{
+			if (ft_abs(x1 - player_x) < ft_abs(player_x - x2))
+            {
+                x2 = x1;
+                y2 = y1;
+            }
+			p = (x2 - player_x) * cos(main_angle) + (player_y - y2) * sin(main_angle);
+			/*color = 0x00FFFF;
+			if (ft_abs(player_x - x1) < ft_abs(player_x - x2))
+			{
+				x2 = x1;
+				y2 = y1;
+			}
+			old_x2 = (x2 - player_x) * 50;
+            old_y2 = (y2 - player_y) * 50;
+            x2 = old_x2 * cos(main_angle) - old_y2 * sin(main_angle);
+            y2 = old_x2 * sin(main_angle) + old_y2 * cos(main_angle);
+            put_line(string, 500, 500, x2 + 500, y2 + 500, color);*/
+		}
+		if (p != 0 && ft_abs(200/p) < 1000)
+		{
+			p = ft_abs(200 / p);
+			y1 = 500 - p / 2;
+			while (y1 < 500 + p / 2)
+			{
+				x1 = i * 1000 / iteration;
+				while (x1 < (i + 1) * 1000 / iteration)
+				{
+					((__global unsigned int*)string)[((int)y1) * 1000 + ((int)x1)] = 0x00FF00;
+					x1++;
+				}
+				y1++;
+			}
 		}
 	}
 }

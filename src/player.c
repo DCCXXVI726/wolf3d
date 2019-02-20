@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 13:07:41 by bfalmer-          #+#    #+#             */
-/*   Updated: 2019/02/15 17:22:05 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/20 15:43:28 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void		put_player(t_wolf *wolf)
 	int i;
 	int k;
 
-	x = 500;
-	y = 500;
+	x = 200;
+	y = 200;
 	k = -5;
 	ft_putnbrln((int)wolf->player->x);
 	ft_putnbrln((int)wolf->player->y);
