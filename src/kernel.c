@@ -6,64 +6,145 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 18:24:44 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/19 18:06:00 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/04 18:14:18 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-static void		set_kernel_arg(t_wolf *wolf)
-{
-	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 0, sizeof(cl_mem),
-			&(wolf->ft_opencl->memobj));
-	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 1, sizeof(cl_mem),
-			&(wolf->cl_map));
-	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 2, sizeof(int),
-			&(wolf->width));
-	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 3, sizeof(double),
-			&(wolf->player->x));
-	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 4, sizeof(double),
-			&(wolf->player->y));
-	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 5, sizeof(double),
-			&(wolf->player->angle));
-	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 6, sizeof(double),
-			&(wolf->fov));
-	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 7, sizeof(int),
-			&(wolf->iteration));
-	wolf->ft_opencl->error |= clSetKernelArg(wolf->ft_opencl->kernel, 8, sizeof(int),
-			&(wolf->heigth));
-	check_error_n_exit(wolf->ft_opencl->error, "SetKernelArg problem");
-}
-
-static void		fill_color(t_wolf *wolf)
-{
-	char *string;
-
-	string = ft_strnew(1000 * 1000 * sizeof(int));
-	set_kernel_arg(wolf);
-	wolf->ft_opencl->error = clEnqueueNDRangeKernel(wolf->ft_opencl->command_queue, wolf->ft_opencl->kernel,
-			1, 0, &(wolf->limit), 0, 0, 0, 0);
-	check_error_n_exit(wolf->ft_opencl->error, "EnqueueNDRangeKernel problem");
-	wolf->ft_opencl->error = clEnqueueReadBuffer(wolf->ft_opencl->command_queue, wolf->ft_opencl->memobj,
-			CL_TRUE, 0, 1000 * 1000 * sizeof(int), string, 0, 0, 0);
-	check_error_n_exit(wolf->ft_opencl->error, "ReadBuffer problem");
-	ft_memcpy(wolf->start_img1, string, 1000 * 1000 * sizeof(int));
-	free(string);
-}
-
 int		put_img(t_wolf *wolf)
 {
-	wolf->ft_opencl->memobj = clCreateBuffer(wolf->ft_opencl->context, CL_MEM_WRITE_ONLY,
-			1000 * 1000 * sizeof(int), NULL, &(wolf->ft_opencl->error));
-	check_error_n_exit(wolf->ft_opencl->error, "CreateBuffer problem");
-	wolf->cl_map = clCreateBuffer(wolf->ft_opencl->context, CL_MEM_WRITE_ONLY,
-			wolf->heigth * wolf->width, NULL, &(wolf->ft_opencl->error));
-	check_error_n_exit(wolf->ft_opencl->error, "CreateBuffer problem");
-	wolf->ft_opencl->error = clEnqueueWriteBuffer(wolf->ft_opencl->command_queue, wolf->cl_map,
-			CL_TRUE, 0, wolf->heigth * wolf->width, wolf->map, 0, 0, 0);
-	check_error_n_exit(wolf->ft_opencl->error, "WriteBuffer problem");
-	fill_color(wolf);
-	put_player(wolf);
+	double angle;
+	int	i;
+	double x1;
+	double x2;
+	double y1;
+	double y2;
+	double x_step;
+	double y_step;
+	double p;
+	int color;
+
+	i = 0;
+	while (i < wolf->iteration)
+	{
+		angle = wolf->player->angle + wolf->fov * (((double)(wolf->iteration)) / 2 - i) / wolf->iteration;
+		if (cos(angle) != 0)
+		{
+			if (cos(angle) > 0)
+			{
+				x1 = 1 + (int)(wolf->player->x);
+				x_step = 1;
+				y1 = wolf->player->y - (1 + (int)(wolf->player->x) - wolf->player->x) * tan(angle);
+			}
+			else
+			{
+				x1 = (int)wolf->player->x;
+				x_step = -1;
+				y1 = wolf->player->y + (wolf->player->x - (int)(wolf->player->x)) * tan(angle);
+			}
+			y_step = x_step * tan(angle);
+			while (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < wolf->heigth / 2)
+			{
+				if (*(wolf->map + ((int)x1) + (((int)y1) * 2 + 1) * wolf->width) != '0')
+					break ;
+				y1 = y1 - y_step;
+				x1 = x1 + x_step;
+			}
+		}
+		else
+		{
+			x1 = -1;
+			y1 = -1;
+		}
+		if (sin(angle) != 0)
+		{
+			if (sin(angle) > 0)
+			{
+				y2 = (int)wolf->player->y;
+				y_step = 1;
+				if (cos(angle) != 0)
+				{
+					x2 = wolf->player->x + (wolf->player->y - (int)(wolf->player->y)) / tan(angle);
+					x_step = y_step / tan(angle);
+				}
+				else
+				{
+					x2 = (int)wolf->player->x;
+					x_step = 0;
+				}
+			}
+			else
+			{
+				y2 = 1 + (int)wolf->player->y;
+				y_step = -1;
+				if (cos(angle) != 0)
+				{
+					x2 = wolf->player->x - (1 - wolf->player->y + (int)(wolf->player->y)) / tan(angle);
+					x_step = y_step / tan(angle);
+				}
+				else
+				{
+					x2 = 1 + (int)wolf->player->x;
+					x_step = 0;
+				}
+			}
+			while (x2 >= 0 && x2 < wolf->width - 1 && y2 >= 0 && y2 < (wolf->heigth / 2))
+			{
+				if (*(wolf->map + (int)x2 + ((int)y2) * 2 * wolf->width) != '0')
+					break ;
+				y2 = y2 - y_step;
+				x2 = x2 + x_step;
+			}
+		}
+		else
+		{
+			y2 = -1;
+			x2 = -1;
+		}
+        p = 0;
+        if ((x2 >= 0 && x2 < wolf->width - 1 && y2 >= 0 && y2 < (wolf->heigth / 2)) && !(x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth / 2)))
+        {
+            p = (x2 - wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y2) * sin(wolf->player->angle);
+        }
+        if (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth / 2) && !(x2 >= 0 && x2 < wolf->width - 1 && y2 >= 0 && y2 < (wolf->heigth / 2)))
+        {
+            p = (x1 - wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y1) * sin(wolf->player->angle);
+        }
+        if (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth / 2) && x2 >= 0 && x2 < wolf->width - 1 && y2 >= 0 && y2 < (wolf->heigth / 2))
+        {
+            if (fabs(x1 - wolf->player->x) < fabs(wolf->player->x - x2))
+            {
+                x2 = x1;
+                y2 = y1;
+            }
+            p = (x2 -  wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y2) * sin(wolf->player->angle);
+        }
+        if (p != 0 && fabs(200/p) < 1000)
+        {
+            p = fabs(200 / p);
+		}
+		else
+			p = 1000;
+		y1 = 0;
+		while (y1 < 1000)
+		{
+			if (y1 < 500 - p / 2)
+				color = 0xFFFFFF;	
+			else if (y1 < 500 + p / 2)
+				color = 0x00FF00;
+			else
+				color = 0;
+			x1 = i * 1000 / wolf->iteration;
+			while (x1 < (i + 1) * 1000 / wolf->iteration)
+			{
+				((int*)wolf->start_img1)[((int)y1) * 1000 + ((int)x1)] = color;
+				x1++;
+			}
+			y1++;
+		}
+		i++;
+	}	
 	mlx_put_image_to_window(wolf->mlx_ptr, wolf->win_ptr, wolf->img1_ptr, 0, 0);
 	return (0);
 }
