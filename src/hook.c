@@ -15,6 +15,7 @@
 int     ft_close(t_wolf *wolf)
 {
     (void)wolf;
+    system("killall afplay");
     exit(1);
     return 0;
 }

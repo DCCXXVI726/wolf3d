@@ -14,10 +14,20 @@
 
 int     player_move(int key, t_wolf *wolf)
 {
+    double x;
+    double y;
+
     if (key == 13)
     {
-        wolf->player->x += STEP * cos(wolf->player->angle);
-        wolf->player->y -= STEP * sin(wolf->player->angle);
+        x = wolf->player->x + STEP * cos(wolf->player->angle);
+        y = wolf->player->y - STEP * sin(wolf->player->angle);
+        if (wolf->map[(int)(y) * wolf->width + (int)(x)] != 0)
+        {
+            wolf->player->x = x;
+            wolf->player->y = y;
+            system("afplay src/step.wav &");
+        }
+        
     }
     if (key == 1)
     {
@@ -36,7 +46,10 @@ int     key_press(int key, t_wolf *wolf)
 {
     (void)wolf;
     if (key == 53)
+    {
+        system("killall afplay");
         exit(1);
+    }
     if (key == 13 || key == 1 || key == 0 || key == 2)
         player_move(key, wolf);
     mlx_clear_window(wolf->mlx_ptr, wolf->win_ptr);

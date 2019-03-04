@@ -18,5 +18,6 @@ int		main()
 	wolf = create_struct();
 	put_img(wolf);
 	hook(wolf);
+	system("afplay src/doom.mp3 -v 0.3 &");
 	mlx_loop(wolf->mlx_ptr);
 }
