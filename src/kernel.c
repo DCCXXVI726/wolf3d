@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 18:24:44 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/04 18:14:18 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/04 20:04:13 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		put_img(t_wolf *wolf)
 	i = 0;
 	while (i < wolf->iteration)
 	{
-		angle = wolf->player->angle + wolf->fov * (((double)(wolf->iteration)) / 2 - i) / wolf->iteration;
+		angle = wolf->player->angle + wolf->fov * (1.0/ 2 - ((double)i) / wolf->iteration);
 		if (cos(angle) != 0)
 		{
 			if (cos(angle) > 0)
@@ -44,9 +44,11 @@ int		put_img(t_wolf *wolf)
 				y1 = wolf->player->y + (wolf->player->x - (int)(wolf->player->x)) * tan(angle);
 			}
 			y_step = x_step * tan(angle);
-			while (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < wolf->heigth / 2)
+			while (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < wolf->heigth)
 			{
-				if (*(wolf->map + ((int)x1) + (((int)y1) * 2 + 1) * wolf->width) != '0')
+				if (*(wolf->map + ((int)(x1)) + (((int)y1)) * wolf->width) != '0')
+					break ;
+				if (*(wolf->map + ((int)(x1 - 1)) + (((int)y1)) * wolf->width) != '0')
 					break ;
 				y1 = y1 - y_step;
 				x1 = x1 + x_step;
@@ -89,9 +91,11 @@ int		put_img(t_wolf *wolf)
 					x_step = 0;
 				}
 			}
-			while (x2 >= 0 && x2 < wolf->width - 1 && y2 >= 0 && y2 < (wolf->heigth / 2))
+			while (x2 >= 0 && x2 < wolf->width && y2>= 0 && y2< (wolf->heigth))
 			{
-				if (*(wolf->map + (int)x2 + ((int)y2) * 2 * wolf->width) != '0')
+				if (*(wolf->map + (int)(x2) + ((int)y2 - 1) * wolf->width) != '0')
+					break ;
+				if (*(wolf->map + (int)(x2) + ((int)y2) * wolf->width) != '0')
 					break ;
 				y2 = y2 - y_step;
 				x2 = x2 + x_step;
@@ -103,15 +107,15 @@ int		put_img(t_wolf *wolf)
 			x2 = -1;
 		}
         p = 0;
-        if ((x2 >= 0 && x2 < wolf->width - 1 && y2 >= 0 && y2 < (wolf->heigth / 2)) && !(x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth / 2)))
+        if ((x2 >= 0 && x2 < wolf->width && y2 >= 0 && y2 < (wolf->heigth)) && !(x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth)))
         {
             p = (x2 - wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y2) * sin(wolf->player->angle);
         }
-        if (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth / 2) && !(x2 >= 0 && x2 < wolf->width - 1 && y2 >= 0 && y2 < (wolf->heigth / 2)))
+        if (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth) && !(x2 >= 0 && x2 < wolf->width && y2 >= 0 && y2 < (wolf->heigth)))
         {
             p = (x1 - wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y1) * sin(wolf->player->angle);
         }
-        if (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth / 2) && x2 >= 0 && x2 < wolf->width - 1 && y2 >= 0 && y2 < (wolf->heigth / 2))
+        if (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth) && x2 >= 0 && x2 < wolf->width && y2 >= 0 && y2 < (wolf->heigth))
         {
             if (fabs(x1 - wolf->player->x) < fabs(wolf->player->x - x2))
             {
@@ -120,9 +124,9 @@ int		put_img(t_wolf *wolf)
             }
             p = (x2 -  wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y2) * sin(wolf->player->angle);
         }
-        if (p != 0 && fabs(200/p) < 1000)
+        if (p != 0 && fabs(300/p) < 1000)
         {
-            p = fabs(200 / p);
+            p = fabs(300 / p);
 		}
 		else
 			p = 1000;

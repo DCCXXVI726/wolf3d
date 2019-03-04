@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/20 13:10:25 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/04 20:19:35 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 # include "libft.h"
 # include <mlx.h>
 # include <math.h>
-# define ANGLE 3.14 / 180
-# define STEP 0.01
+# define ANGLE 3.14 / 60
+# define STEP 0.1
 
 typedef struct  s_player
 {
