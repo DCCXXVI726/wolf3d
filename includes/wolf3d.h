@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/05 15:02:50 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/05 17:03:16 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <math.h>
 # define ANGLE 3.14 / 200
 # define STEP 0.01
+# include "../cat.xpm"
 
 
 typedef struct  s_player
