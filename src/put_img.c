@@ -27,7 +27,19 @@ int		put_img(t_wolf *wolf)
 	double x;
 	double y;
 
-	
+	if (wolf->move_back == 1 || wolf->move_forward == 1
+		|| wolf->move_left || wolf->move_right == 1)
+	{
+		if (wolf->step > 0.01)
+			wolf->step_count += 2;
+		else
+			wolf->step_count += 1;
+		if (wolf->step_count == 30)
+		{
+			system("afplay src/step.wav &");
+			wolf->step_count = 0;
+		}
+	}
 	if (wolf->move_forward == 1)
 	{
 		x = wolf->player->x + wolf->step * cos(wolf->player->angle);

@@ -46,6 +46,7 @@ typedef	struct	s_wolf
 	double		fov;
 	int			mouse_x;
 	double		step;
+	int			step_count;
 	char		move_forward;
 	char		move_back;
 	char		move_right;

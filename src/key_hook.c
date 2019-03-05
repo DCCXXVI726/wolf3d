@@ -57,6 +57,8 @@ int     key_press(int key, t_wolf *wolf)
         player_move(key, wolf, 1);
 	if (key == 257)
 		wolf->step = 0.03;
+	if (key == 256)
+		system("killall afplay doom.mp3");
     mlx_clear_window(wolf->mlx_ptr, wolf->win_ptr);
     put_img(wolf);
     return 0;
