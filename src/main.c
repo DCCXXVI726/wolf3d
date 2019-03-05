@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:37:27 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/04 16:33:35 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/05 16:41:05 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int		main()
 {
 	t_wolf	*wolf;
+
 	wolf = create_struct();
 	put_img(wolf);
 	hook(wolf);
