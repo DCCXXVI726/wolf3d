@@ -27,6 +27,7 @@ int		put_img(t_wolf *wolf)
 	double x;
 	double y;
 
+	
 	if (wolf->move_forward == 1)
 	{
 		x = wolf->player->x + STEP * cos(wolf->player->angle);
@@ -190,7 +191,7 @@ int		put_img(t_wolf *wolf)
 			y1++;
 		}
 		i++;
-	}	
+	}
 	mlx_put_image_to_window(wolf->mlx_ptr, wolf->win_ptr, wolf->img1_ptr, 0, 0);
 	return (0);
 }
