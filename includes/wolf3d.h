@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/05 18:03:36 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/05 19:26:19 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ typedef	struct	s_wolf
 	char		move_back;
 	char		move_right;
 	char		move_left;
-
+	int			line_horizon;
+	double		step_ill;
 }				t_wolf;
 
 int				put_img(t_wolf *wolf);

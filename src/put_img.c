@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 13:58:41 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/05 18:15:52 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/05 19:58:57 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,27 @@ int		put_img(t_wolf *wolf)
 			system("afplay src/step.wav &");
 			wolf->step_count = 0;
 		}
+		if (wolf->step_ill == 0 || wolf->step == 3.14 / 120)
+			wolf->step_ill += 3.14 / 120;
+		else if (wolf->step_ill < 3.14)
+			wolf->step_ill += 3.14 / 60;
+		else
+			wolf->step_ill = 3.14 / 60;
+		wolf->line_horizon = 500 + 50 * sin(wolf->step_ill);
+	}
+	else
+	{
+		if (wolf->step_ill > 3.14 / 2)
+		{
+			wolf->step_ill += 3.14 / 60;
+			if (wolf->step_ill >= 3.14)
+				wolf->step_ill = 0;
+		}
+		else if (wolf->step_ill >= 3.14 / 60)
+			wolf->step_ill -= 3.14 / 60;
+		else if (wolf->step_ill == 3.14 / 120)
+			wolf->step_ill = 0;
+		wolf->line_horizon = 500 + 50 * sin(wolf->step_ill);
 	}
 	if (wolf->move_forward == 1)
 	{
@@ -184,7 +205,7 @@ int		put_img(t_wolf *wolf)
             }
             p = (x2 -  wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y2) * sin(wolf->player->angle);
         }
-        if (p != 0 && fabs(500/p) < 1000)
+        if (p != 0)
         {
             p = fabs(500 / p);
 		}
@@ -193,9 +214,9 @@ int		put_img(t_wolf *wolf)
 		y1 = 0;
 		while (y1 < 1000)
 		{
-			if (y1 < 500 - p / 2)
+			if (y1 < wolf->line_horizon - p / 2)
 				color = 0xFFFFFF;	
-			else if (y1 < 500 + p / 2)
+			else if (y1 < wolf->line_horizon + p / 2)
 				color = color_wall;
 			else
 				color = 0;
