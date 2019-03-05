@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 13:58:41 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/05 16:36:27 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/05 18:15:52 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,16 @@ int		put_img(t_wolf *wolf)
 	int color;
 	double x;
 	double y;
+	int color_wall;
 
 	if (wolf->move_back == 1 || wolf->move_forward == 1
-		|| wolf->move_left || wolf->move_right == 1)
+		|| wolf->move_left == 1 || wolf->move_right == 1)
 	{
 		if (wolf->step > 0.01)
 			wolf->step_count += 2;
 		else
 			wolf->step_count += 1;
-		if (wolf->step_count == 30)
+		if (wolf->step_count > 30)
 		{
 			system("afplay src/step.wav &");
 			wolf->step_count = 0;
@@ -165,17 +166,21 @@ int		put_img(t_wolf *wolf)
         if ((x2 >= 0 && x2 < wolf->width && y2 >= 0 && y2 < (wolf->heigth)) && !(x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth)))
         {
             p = (x2 - wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y2) * sin(wolf->player->angle);
+			color_wall = 0x008800;
         }
         if (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth) && !(x2 >= 0 && x2 < wolf->width && y2 >= 0 && y2 < (wolf->heigth)))
         {
+			color_wall = 0x00BB00;
             p = (x1 - wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y1) * sin(wolf->player->angle);
         }
         if (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth) && x2 >= 0 && x2 < wolf->width && y2 >= 0 && y2 < (wolf->heigth))
         {
+			color_wall = 0x008800;
             if (fabs(x1 - wolf->player->x) < fabs(wolf->player->x - x2))
             {
                 x2 = x1;
                 y2 = y1;
+				color_wall = 0x00BB00;
             }
             p = (x2 -  wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y2) * sin(wolf->player->angle);
         }
@@ -191,7 +196,7 @@ int		put_img(t_wolf *wolf)
 			if (y1 < 500 - p / 2)
 				color = 0xFFFFFF;	
 			else if (y1 < 500 + p / 2)
-				color = 0x008800;
+				color = color_wall;
 			else
 				color = 0;
 			x1 = i * 1000 / wolf->iteration;

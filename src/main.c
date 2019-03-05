@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:37:27 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/05 16:41:05 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/05 18:05:30 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		main()
 
 	wolf = create_struct();
 	hook(wolf);
-	system("afplay src/doom.mp3 -v 0.3 &");
+	//system("afplay src/doom.mp3 -v 0.3 &");
 	mlx_loop_hook(wolf->mlx_ptr, put_img, wolf);
 	mlx_loop(wolf->mlx_ptr);
 }
