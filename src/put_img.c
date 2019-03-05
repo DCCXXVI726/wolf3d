@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 13:58:41 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/05 13:59:31 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/05 15:11:54 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,49 @@ int		put_img(t_wolf *wolf)
 	double y_step;
 	double p;
 	int color;
-	
+	double x;
+	double y;
+
+	if (wolf->move_forward == 1)
+	{
+		x = wolf->player->x + STEP * cos(wolf->player->angle);
+		y = wolf->player->y - STEP * sin(wolf->player->angle);
+		if (wolf->map[(int)(y) * wolf->width + (int)(x)] == '0')
+		{
+			wolf->player->x = x;
+			wolf->player->y = y;
+		}
+	}
+	if (wolf->move_back	== 1)
+	{
+		x = wolf->player->x - STEP * cos(wolf->player->angle);
+		y = wolf->player->y + STEP * sin(wolf->player->angle);
+		if (wolf->map[(int)(y) * wolf->width + (int)(x)] == '0')
+		{
+			wolf->player->x = x;
+			wolf->player->y = y;
+		}
+	}
+	if (wolf->move_right == 1)
+	{
+		x = wolf->player->x - STEP * cos(wolf->player->angle + 3.14 / 2);
+		y = wolf->player->y + STEP * sin(wolf->player->angle + 3.14 / 2);
+		if (wolf->map[(int)(y) * wolf->width + (int)(x)] == '0')
+		{
+			wolf->player->x = x;
+			wolf->player->y = y;
+		}
+	}
+	if (wolf->move_left == 1)
+	{
+		x = wolf->player->x - STEP * cos(wolf->player->angle - 3.14 / 2);
+		y = wolf->player->y + STEP * sin(wolf->player->angle - 3.14 / 2);
+		if (wolf->map[(int)(y) * wolf->width + (int)(x)] == '0')
+		{
+			wolf->player->x = x;
+			wolf->player->y = y;
+		}
+	}
 	i = 0;
 	while (i < wolf->iteration)
 	{

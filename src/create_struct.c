@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/04 20:16:06 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/05 15:11:01 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,11 @@ t_wolf	*create_struct()
 	}
 	new->player->x = 1.5;
 	new->player->y = 1.5;
-	new->player->angle = 3.14;
+	new->player->angle = 0;
+	new->move_forward = 0;
+	new->move_back = 0;
+	new->move_right = 0;
+	new->move_left = 0;
 	init_mlx(new);
 	read_map(new, "map");
 	new->fov = 3.14/3;

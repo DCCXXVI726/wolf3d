@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 18:44:08 by bfalmer-          #+#    #+#             */
-/*   Updated: 2019/03/05 14:13:30 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/05 14:50:04 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,8 @@ int     ft_close(t_wolf *wolf)
 
 void    hook(t_wolf *wolf)
 {
-    //mlx_hook(wolf->win_ptr, 2, 0, key_press, wolf);
+    mlx_hook(wolf->win_ptr, 2, 0, key_press, wolf);
 	mlx_hook(wolf->win_ptr, 17, 0, ft_close, wolf);
-<<<<<<< HEAD
-    mlx_hook(wolf->win_ptr, 6, 0, mouse_move, wolf);
 	mlx_hook(wolf->win_ptr, 3, 0, key_release, wolf);
-=======
-   // mlx_hook(wolf->win_ptr, 6, 0, mouse_move, wolf);
->>>>>>> refs/remotes/origin/master
+   //mlx_hook(wolf->win_ptr, 6, 0, mouse_move, wolf);
 }
