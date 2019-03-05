@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/04 20:19:35 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/05 15:02:50 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # include <mlx.h>
 # include <math.h>
 # define ANGLE 3.14 / 200
-# define STEP 0.1
+# define STEP 0.01
+
 
 typedef struct  s_player
 {
@@ -44,12 +45,19 @@ typedef	struct	s_wolf
 	int			iteration;
 	double		fov;
 	int			mouse_x;
+
+	char		move_forward;
+	char		move_back;
+	char		move_right;
+	char		move_left;
+
 }				t_wolf;
 
 int				put_img(t_wolf *wolf);
 t_wolf			*create_struct();
 void    		hook(t_wolf *wolf);
 int     		key_press(int key, t_wolf *wolf);
+int             key_release(int key, t_wolf *wolf);
 void			put_player(t_wolf *wolf);
 int     		mouse_move(int x, int y, t_wolf *wolf);
 #endif
