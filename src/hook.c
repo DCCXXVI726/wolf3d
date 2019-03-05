@@ -24,6 +24,10 @@ void    hook(t_wolf *wolf)
 {
     //mlx_hook(wolf->win_ptr, 2, 0, key_press, wolf);
 	mlx_hook(wolf->win_ptr, 17, 0, ft_close, wolf);
+<<<<<<< HEAD
     mlx_hook(wolf->win_ptr, 6, 0, mouse_move, wolf);
 	mlx_hook(wolf->win_ptr, 3, 0, key_release, wolf);
+=======
+   // mlx_hook(wolf->win_ptr, 6, 0, mouse_move, wolf);
+>>>>>>> refs/remotes/origin/master
 }

@@ -24,7 +24,7 @@ int		put_img(t_wolf *wolf)
 	double y_step;
 	double p;
 	int color;
-
+	
 	i = 0;
 	while (i < wolf->iteration)
 	{
