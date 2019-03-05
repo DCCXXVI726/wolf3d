@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 18:24:44 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/04 20:04:13 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/05 13:31:58 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,9 @@ int		put_img(t_wolf *wolf)
             }
             p = (x2 -  wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y2) * sin(wolf->player->angle);
         }
-        if (p != 0 && fabs(300/p) < 1000)
+        if (p != 0 && fabs(500/p) < 1000)
         {
-            p = fabs(300 / p);
+            p = fabs(500 / p);
 		}
 		else
 			p = 1000;
@@ -136,7 +136,7 @@ int		put_img(t_wolf *wolf)
 			if (y1 < 500 - p / 2)
 				color = 0xFFFFFF;	
 			else if (y1 < 500 + p / 2)
-				color = 0x00FF00;
+				color = 0x008800;
 			else
 				color = 0;
 			x1 = i * 1000 / wolf->iteration;
