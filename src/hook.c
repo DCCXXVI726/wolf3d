@@ -24,4 +24,5 @@ void    hook(t_wolf *wolf)
 {
     mlx_hook(wolf->win_ptr, 2, 0, key_press, wolf);
 	mlx_hook(wolf->win_ptr, 17, 0, ft_close, wolf);
+    mlx_hook(wolf->win_ptr, 6, 0, mouse_move, wolf);
 }
