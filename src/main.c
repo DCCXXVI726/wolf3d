@@ -12,11 +12,12 @@
 
 #include "wolf3d.h"
 
+
 int		main()
 {
 	t_wolf	*wolf;
 	wolf = create_struct();
-	put_img(wolf);
+	hide();
 	hook(wolf);
 	system("afplay src/doom.mp3 -v 0.3 &");
 	mlx_loop_hook(wolf->mlx_ptr, put_img, wolf);

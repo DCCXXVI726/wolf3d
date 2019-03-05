@@ -15,7 +15,7 @@
 # include "libft.h"
 # include <mlx.h>
 # include <math.h>
-# define ANGLE 3.14 / 60
+# define ANGLE 3.14 / 200
 # define STEP 0.1
 
 typedef struct  s_player
@@ -43,6 +43,7 @@ typedef	struct	s_wolf
 	cl_mem		cl_map;
 	int			iteration;
 	double		fov;
+	int			mouse_x;
 }				t_wolf;
 
 int				put_img(t_wolf *wolf);
@@ -50,4 +51,5 @@ t_wolf			*create_struct();
 void    		hook(t_wolf *wolf);
 int     		key_press(int key, t_wolf *wolf);
 void			put_player(t_wolf *wolf);
+int     		mouse_move(int x, int y, t_wolf *wolf);
 #endif
