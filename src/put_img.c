@@ -30,8 +30,8 @@ int		put_img(t_wolf *wolf)
 	
 	if (wolf->move_forward == 1)
 	{
-		x = wolf->player->x + STEP * cos(wolf->player->angle);
-		y = wolf->player->y - STEP * sin(wolf->player->angle);
+		x = wolf->player->x + wolf->step * cos(wolf->player->angle);
+		y = wolf->player->y - wolf->step * sin(wolf->player->angle);
 		if (wolf->map[(int)(y) * wolf->width + (int)(x)] == '0')
 		{
 			wolf->player->x = x;
@@ -40,8 +40,8 @@ int		put_img(t_wolf *wolf)
 	}
 	if (wolf->move_back	== 1)
 	{
-		x = wolf->player->x - STEP * cos(wolf->player->angle);
-		y = wolf->player->y + STEP * sin(wolf->player->angle);
+		x = wolf->player->x - wolf->step * cos(wolf->player->angle);
+		y = wolf->player->y + wolf->step * sin(wolf->player->angle);
 		if (wolf->map[(int)(y) * wolf->width + (int)(x)] == '0')
 		{
 			wolf->player->x = x;
@@ -50,8 +50,8 @@ int		put_img(t_wolf *wolf)
 	}
 	if (wolf->move_right == 1)
 	{
-		x = wolf->player->x - STEP * cos(wolf->player->angle + 3.14 / 2);
-		y = wolf->player->y + STEP * sin(wolf->player->angle + 3.14 / 2);
+		x = wolf->player->x - wolf->step * cos(wolf->player->angle + 3.14 / 2);
+		y = wolf->player->y + wolf->step * sin(wolf->player->angle + 3.14 / 2);
 		if (wolf->map[(int)(y) * wolf->width + (int)(x)] == '0')
 		{
 			wolf->player->x = x;
@@ -60,8 +60,8 @@ int		put_img(t_wolf *wolf)
 	}
 	if (wolf->move_left == 1)
 	{
-		x = wolf->player->x - STEP * cos(wolf->player->angle - 3.14 / 2);
-		y = wolf->player->y + STEP * sin(wolf->player->angle - 3.14 / 2);
+		x = wolf->player->x - wolf->step * cos(wolf->player->angle - 3.14 / 2);
+		y = wolf->player->y + wolf->step * sin(wolf->player->angle - 3.14 / 2);
 		if (wolf->map[(int)(y) * wolf->width + (int)(x)] == '0')
 		{
 			wolf->player->x = x;

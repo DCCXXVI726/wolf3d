@@ -16,7 +16,6 @@
 # include <mlx.h>
 # include <math.h>
 # define ANGLE 3.14 / 200
-# define STEP 0.01
 # include "../cat.xpm"
 
 
@@ -46,7 +45,7 @@ typedef	struct	s_wolf
 	int			iteration;
 	double		fov;
 	int			mouse_x;
-
+	double		step;
 	char		move_forward;
 	char		move_back;
 	char		move_right;

@@ -74,6 +74,7 @@ t_wolf	*create_struct()
 	new->move_back = 0;
 	new->move_right = 0;
 	new->move_left = 0;
+	new->step = 0.01;
 	init_mlx(new);
 	read_map(new, "map");
 	new->fov = 3.14/3;
