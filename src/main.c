@@ -19,5 +19,6 @@ int		main()
 	put_img(wolf);
 	hook(wolf);
 	system("afplay src/doom.mp3 -v 0.3 &");
+	mlx_loop_hook(wolf->mlx_ptr, put_img, wolf);
 	mlx_loop(wolf->mlx_ptr);
 }
