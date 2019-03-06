@@ -15,7 +15,7 @@
 int		main()
 {
 	t_wolf	*wolf;
-
+	ShowCursor(FALSE);
 	wolf = create_struct();
 	hook(wolf);
 	//system("afplay src/doom.mp3 -v 0.3 &");
