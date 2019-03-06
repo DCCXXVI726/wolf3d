@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/06 13:15:09 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/06 15:37:58 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 # include "libft.h"
 # include <mlx.h>
 # include <math.h>
+# include <time.h>
+# include <sys/time.h>
 # define ANGLE 3.14 / 200
-
 typedef struct  s_player
 {
 	double      x;
@@ -26,6 +27,8 @@ typedef struct  s_player
 
 typedef	struct	s_wolf
 {
+	struct timeval			time;
+	struct timeval			old_time;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	void		*img1_ptr;

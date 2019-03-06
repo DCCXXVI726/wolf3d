@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 13:58:41 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/06 13:26:40 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/06 17:06:35 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ int		put_img(t_wolf *wolf)
             p = (x2 -  wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y2) * sin(wolf->player->angle);
         }
         if (p != 0)
-            p = fabs(500 / p);
+            p = fabs(900 / p);
 		y1 = 0;
 		if (color_wall == 0x008800)
 			pos = (int)(pos * wolf->width_tx2);
@@ -245,6 +245,12 @@ int		put_img(t_wolf *wolf)
 		}
 		i++;
 	}
+	wolf->old_time = wolf->time;
+	gettimeofday(&wolf->time, NULL);
 	mlx_put_image_to_window(wolf->mlx_ptr, wolf->win_ptr, wolf->img1_ptr, 0, 0);
-	return (0);
+	if (wolf->time.tv_sec > wolf->old_time.tv_sec)
+		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, 0, 0, 0xFF0000, ft_itoa(((int)(1000000 / (wolf->time.tv_usec + 1000000 - wolf->old_time.tv_usec)))));
+	else
+		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, 0, 0, 0xFF0000, ft_itoa(((int)(1000000 / (wolf->time.tv_usec - wolf->old_time.tv_usec)))));
+		return (0);
 }
