@@ -68,6 +68,13 @@ typedef	struct	s_wolf
 	char        *start_img_tx2;
 	int         width_tx2;
 	int         heigth_tx2;
+	void        *img_ptr_tx3;
+	int         bpp_tx3;
+	int         size_line_tx3;
+	int         endian_tx3;
+	char        *start_img_tx3;
+	int         width_tx3;
+	int         heigth_tx3;
 }				t_wolf;
 
 int				put_img(t_wolf *wolf);

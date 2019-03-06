@@ -29,6 +29,7 @@ int		put_img(t_wolf *wolf)
 	int color_wall;
 	double pos;
 
+
 	if (wolf->move_back == 1 || wolf->move_forward == 1
 		|| wolf->move_left == 1 || wolf->move_right == 1)
 	{
@@ -245,6 +246,24 @@ int		put_img(t_wolf *wolf)
 		}
 		i++;
 	}
+	y1 = 0;
+	x1 = 0;
+	while (y1  < 1000)
+	{
+		while (x1 < 1000)
+		{
+			if (((int*)wolf->start_img_tx3)[((int)(wolf->heigth_tx3 / (1000 / y1))) * wolf->width_tx3 + ((int)(wolf->width_tx3 / (1000 / x1)))] != 0x8C1E84 &&
+			((int*)wolf->start_img_tx3)[((int)(wolf->heigth_tx3 / (1000 / y1))) * wolf->width_tx3 + ((int)(wolf->width_tx3 / (1000 / x1)))] != 0x691663)
+			{
+				color = ((int*)wolf->start_img_tx3)[((int)(wolf->heigth_tx3 / (1000 / y1))) * wolf->width_tx3 + ((int)(wolf->width_tx3 / (1000 / x1)))];
+				((int*)wolf->start_img1)[(int)(y1 * 1000 + x1)] = color;
+			}
+			x1++;
+		}
+		x1 = 0;
+		y1++;
+	}
+
 	wolf->old_time = wolf->time;
 	gettimeofday(&wolf->time, NULL);
 	mlx_put_image_to_window(wolf->mlx_ptr, wolf->win_ptr, wolf->img1_ptr, 0, 0);
