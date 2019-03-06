@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 13:58:41 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/05 19:58:57 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/06 13:26:40 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		put_img(t_wolf *wolf)
 	double x;
 	double y;
 	int color_wall;
+	double pos;
 
 	if (wolf->move_back == 1 || wolf->move_forward == 1
 		|| wolf->move_left == 1 || wolf->move_right == 1)
@@ -188,36 +189,50 @@ int		put_img(t_wolf *wolf)
         {
             p = (x2 - wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y2) * sin(wolf->player->angle);
 			color_wall = 0x008800;
+			pos = x2 - (int)x2;
         }
-        if (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth) && !(x2 >= 0 && x2 < wolf->width && y2 >= 0 && y2 < (wolf->heigth)))
+		else if (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth) && !(x2 >= 0 && x2 < wolf->width && y2 >= 0 && y2 < (wolf->heigth)))
         {
-			color_wall = 0x00BB00;
+			color_wall = 0xBB0000;
             p = (x1 - wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y1) * sin(wolf->player->angle);
+			pos = y1 - (int)y1;
         }
-        if (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth) && x2 >= 0 && x2 < wolf->width && y2 >= 0 && y2 < (wolf->heigth))
+		else if (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth) && x2 >= 0 && x2 < wolf->width && y2 >= 0 && y2 < (wolf->heigth))
         {
 			color_wall = 0x008800;
             if (fabs(x1 - wolf->player->x) < fabs(wolf->player->x - x2))
             {
                 x2 = x1;
                 y2 = y1;
-				color_wall = 0x00BB00;
+				color_wall = 0xBB0000;
+				pos = y2 - (int)y2;
             }
+			else
+				pos = x2 - (int)x2;
             p = (x2 -  wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y2) * sin(wolf->player->angle);
         }
         if (p != 0)
-        {
             p = fabs(500 / p);
-		}
-		else
-			p = 1000;
 		y1 = 0;
+		if (color_wall == 0x008800)
+			pos = (int)(pos * wolf->width_tx2);
+		else
+			pos = (int)(pos * wolf->width_tx);
 		while (y1 < 1000)
 		{
 			if (y1 < wolf->line_horizon - p / 2)
 				color = 0xFFFFFF;	
 			else if (y1 < wolf->line_horizon + p / 2)
-				color = color_wall;
+			{
+				if (color_wall == 0x008800)
+				{
+					color = ((int*)wolf->start_img_tx2)[(int)pos + (int)((y1 - wolf->line_horizon + p / 2) / p * wolf->heigth_tx2) * wolf->width_tx2];
+				}
+				else
+				{
+					color = ((int*)wolf->start_img_tx)[(int)pos + (int)((y1 - wolf->line_horizon + p / 2) / p * wolf->heigth_tx) * wolf->width_tx];
+				}
+			}
 			else
 				color = 0;
 			x1 = i * 1000 / wolf->iteration;

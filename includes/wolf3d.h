@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/05 19:26:19 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/06 13:15:09 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,20 @@ typedef	struct	s_wolf
 	char		move_left;
 	int			line_horizon;
 	double		step_ill;
+	void		*img_ptr_tx;
+	int			bpp_tx;
+	int			size_line_tx;
+	int			endian_tx;
+	char		*start_img_tx;
+	int			width_tx;
+	int			heigth_tx;
+	void        *img_ptr_tx2;
+	int         bpp_tx2;
+	int         size_line_tx2;
+	int         endian_tx2;
+	char        *start_img_tx2;
+	int         width_tx2;
+	int         heigth_tx2;
 }				t_wolf;
 
 int				put_img(t_wolf *wolf);
