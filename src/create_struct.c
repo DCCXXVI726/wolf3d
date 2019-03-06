@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/05 16:41:21 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/06 15:38:32 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,13 @@ t_wolf	*create_struct()
 	new->move_right = 0;
 	new->move_left = 0;
 	new->step = 0.01;
+	new->step_ill = 0;
+	new->line_horizon = 500;
 	new->step_count = 0;
+	gettimeofday(&new->time, NULL);
 	init_mlx(new);
 	read_map(new, "map");
 	new->fov = 3.14/3;
-	new->iteration = 200;
+	new->iteration = 1000;
 	return(new);
 }

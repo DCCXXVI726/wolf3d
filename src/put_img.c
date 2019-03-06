@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 13:58:41 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/05 18:15:52 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/06 17:06:35 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		put_img(t_wolf *wolf)
 	double x;
 	double y;
 	int color_wall;
+	double pos;
 
 	if (wolf->move_back == 1 || wolf->move_forward == 1
 		|| wolf->move_left == 1 || wolf->move_right == 1)
@@ -40,6 +41,27 @@ int		put_img(t_wolf *wolf)
 			system("afplay src/step.wav &");
 			wolf->step_count = 0;
 		}
+		if (wolf->step_ill == 0 || wolf->step == 3.14 / 120)
+			wolf->step_ill += 3.14 / 120;
+		else if (wolf->step_ill < 3.14)
+			wolf->step_ill += 3.14 / 60;
+		else
+			wolf->step_ill = 3.14 / 60;
+		wolf->line_horizon = 500 + 50 * sin(wolf->step_ill);
+	}
+	else
+	{
+		if (wolf->step_ill > 3.14 / 2)
+		{
+			wolf->step_ill += 3.14 / 60;
+			if (wolf->step_ill >= 3.14)
+				wolf->step_ill = 0;
+		}
+		else if (wolf->step_ill >= 3.14 / 60)
+			wolf->step_ill -= 3.14 / 60;
+		else if (wolf->step_ill == 3.14 / 120)
+			wolf->step_ill = 0;
+		wolf->line_horizon = 500 + 50 * sin(wolf->step_ill);
 	}
 	if (wolf->move_forward == 1)
 	{
@@ -167,36 +189,50 @@ int		put_img(t_wolf *wolf)
         {
             p = (x2 - wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y2) * sin(wolf->player->angle);
 			color_wall = 0x008800;
+			pos = x2 - (int)x2;
         }
-        if (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth) && !(x2 >= 0 && x2 < wolf->width && y2 >= 0 && y2 < (wolf->heigth)))
+		else if (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth) && !(x2 >= 0 && x2 < wolf->width && y2 >= 0 && y2 < (wolf->heigth)))
         {
-			color_wall = 0x00BB00;
+			color_wall = 0xBB0000;
             p = (x1 - wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y1) * sin(wolf->player->angle);
+			pos = y1 - (int)y1;
         }
-        if (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth) && x2 >= 0 && x2 < wolf->width && y2 >= 0 && y2 < (wolf->heigth))
+		else if (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < (wolf->heigth) && x2 >= 0 && x2 < wolf->width && y2 >= 0 && y2 < (wolf->heigth))
         {
 			color_wall = 0x008800;
             if (fabs(x1 - wolf->player->x) < fabs(wolf->player->x - x2))
             {
                 x2 = x1;
                 y2 = y1;
-				color_wall = 0x00BB00;
+				color_wall = 0xBB0000;
+				pos = y2 - (int)y2;
             }
+			else
+				pos = x2 - (int)x2;
             p = (x2 -  wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y2) * sin(wolf->player->angle);
         }
-        if (p != 0 && fabs(500/p) < 1000)
-        {
-            p = fabs(500 / p);
-		}
-		else
-			p = 1000;
+        if (p != 0)
+            p = fabs(900 / p);
 		y1 = 0;
+		if (color_wall == 0x008800)
+			pos = (int)(pos * wolf->width_tx2);
+		else
+			pos = (int)(pos * wolf->width_tx);
 		while (y1 < 1000)
 		{
-			if (y1 < 500 - p / 2)
+			if (y1 < wolf->line_horizon - p / 2)
 				color = 0xFFFFFF;	
-			else if (y1 < 500 + p / 2)
-				color = color_wall;
+			else if (y1 < wolf->line_horizon + p / 2)
+			{
+				if (color_wall == 0x008800)
+				{
+					color = ((int*)wolf->start_img_tx2)[(int)pos + (int)((y1 - wolf->line_horizon + p / 2) / p * wolf->heigth_tx2) * wolf->width_tx2];
+				}
+				else
+				{
+					color = ((int*)wolf->start_img_tx)[(int)pos + (int)((y1 - wolf->line_horizon + p / 2) / p * wolf->heigth_tx) * wolf->width_tx];
+				}
+			}
 			else
 				color = 0;
 			x1 = i * 1000 / wolf->iteration;
@@ -209,6 +245,12 @@ int		put_img(t_wolf *wolf)
 		}
 		i++;
 	}
+	wolf->old_time = wolf->time;
+	gettimeofday(&wolf->time, NULL);
 	mlx_put_image_to_window(wolf->mlx_ptr, wolf->win_ptr, wolf->img1_ptr, 0, 0);
-	return (0);
+	if (wolf->time.tv_sec > wolf->old_time.tv_sec)
+		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, 0, 0, 0xFF0000, ft_itoa(((int)(1000000 / (wolf->time.tv_usec + 1000000 - wolf->old_time.tv_usec)))));
+	else
+		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, 0, 0, 0xFF0000, ft_itoa(((int)(1000000 / (wolf->time.tv_usec - wolf->old_time.tv_usec)))));
+		return (0);
 }
