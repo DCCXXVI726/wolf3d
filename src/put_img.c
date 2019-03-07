@@ -39,7 +39,7 @@ int		put_img(t_wolf *wolf)
 			wolf->step_count += 1;
 		if (wolf->step_count > 30)
 		{
-			system("afplay src/step.wav &");
+			system("afplay sounds/step.wav &");
 			wolf->step_count = 0;
 		}
 		if (wolf->step_ill == 0 || wolf->step == 3.14 / 120)
@@ -235,7 +235,7 @@ int		put_img(t_wolf *wolf)
 				}
 			}
 			else
-				color = 0;
+				color = 0x666666;
 			x1 = i * 1000 / wolf->iteration;
 			while (x1 < (i + 1) * 1000 / wolf->iteration)
 			{
@@ -248,12 +248,11 @@ int		put_img(t_wolf *wolf)
 	}
 	y1 = 0;
 	x1 = 0;
-	while (y1  < 1000)
+	/*while (y1 < 1000)
 	{
-		while (x1 < 1000)
+		while (x1 < 500)
 		{
-			if (((int*)wolf->start_img_tx3)[((int)(wolf->heigth_tx3 / (1000 / y1))) * wolf->width_tx3 + ((int)(wolf->width_tx3 / (1000 / x1)))] != 0x8C1E84 &&
-			((int*)wolf->start_img_tx3)[((int)(wolf->heigth_tx3 / (1000 / y1))) * wolf->width_tx3 + ((int)(wolf->width_tx3 / (1000 / x1)))] != 0x691663)
+			if (((int*)wolf->start_img_tx3)[((int)(wolf->heigth_tx3 / (1000 / y1))) * wolf->width_tx3 + ((int)(wolf->width_tx3 / (1000 / x1)))] != 0x0E0E0E)
 			{
 				color = ((int*)wolf->start_img_tx3)[((int)(wolf->heigth_tx3 / (1000 / y1))) * wolf->width_tx3 + ((int)(wolf->width_tx3 / (1000 / x1)))];
 				((int*)wolf->start_img1)[(int)(y1 * 1000 + x1)] = color;
@@ -262,7 +261,7 @@ int		put_img(t_wolf *wolf)
 		}
 		x1 = 0;
 		y1++;
-	}
+	}*/
 
 	wolf->old_time = wolf->time;
 	gettimeofday(&wolf->time, NULL);
