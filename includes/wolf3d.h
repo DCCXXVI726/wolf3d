@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/06 15:37:58 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/07 15:16:17 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef	struct	s_wolf
 {
 	struct timeval			time;
 	struct timeval			old_time;
+	int			win_heidth;
+	int			win_width;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	void		*img1_ptr;
