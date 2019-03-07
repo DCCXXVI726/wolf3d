@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 13:58:41 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/06 17:06:35 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/07 15:28:45 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		put_img(t_wolf *wolf)
 			wolf->step_ill += 3.14 / 60;
 		else
 			wolf->step_ill = 3.14 / 60;
-		wolf->line_horizon = 500 + 50 * sin(wolf->step_ill);
+		wolf->line_horizon = wolf->win_heidth / 2 + wolf->win_heidth / 20 * sin(wolf->step_ill);
 	}
 	else
 	{
@@ -62,7 +62,7 @@ int		put_img(t_wolf *wolf)
 			wolf->step_ill -= 3.14 / 60;
 		else if (wolf->step_ill == 3.14 / 120)
 			wolf->step_ill = 0;
-		wolf->line_horizon = 500 + 50 * sin(wolf->step_ill);
+		wolf->line_horizon = wolf->win_heidth / 2 + wolf->win_heidth / 20  * sin(wolf->step_ill);
 	}
 	if (wolf->move_forward == 1)
 	{
@@ -219,7 +219,7 @@ int		put_img(t_wolf *wolf)
 			pos = (int)(pos * wolf->width_tx2);
 		else
 			pos = (int)(pos * wolf->width_tx);
-		while (y1 < 1000)
+		while (y1 < wolf->win_heidth)
 		{
 			if (y1 < wolf->line_horizon - p / 2)
 				color = 0xFFFFFF;	
@@ -236,10 +236,10 @@ int		put_img(t_wolf *wolf)
 			}
 			else
 				color = 0;
-			x1 = i * 1000 / wolf->iteration;
-			while (x1 < (i + 1) * 1000 / wolf->iteration)
+			x1 = (double)i * wolf->win_width / wolf->iteration;
+			while (x1 < (i + 1) * (double) wolf->win_width / wolf->iteration && x1 < wolf->win_width)
 			{
-				((int*)wolf->start_img1)[((int)y1) * 1000 + ((int)x1)] = color;
+				((int*)wolf->start_img1)[((int)y1) * wolf->win_width + ((int)x1)] = color;
 				x1++;
 			}
 			y1++;
@@ -248,7 +248,7 @@ int		put_img(t_wolf *wolf)
 	}
 	y1 = 0;
 	x1 = 0;
-	while (y1  < 1000)
+	/*while (y1  < 1000)
 	{
 		while (x1 < 1000)
 		{
@@ -262,7 +262,7 @@ int		put_img(t_wolf *wolf)
 		}
 		x1 = 0;
 		y1++;
-	}
+	}*/
 
 	wolf->old_time = wolf->time;
 	gettimeofday(&wolf->time, NULL);

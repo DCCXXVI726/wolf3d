@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/06 15:38:32 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/07 15:29:44 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static void	read_map(t_wolf *new, char *name)
 static void	init_mlx(t_wolf *new)
 {
 	new->mlx_ptr = mlx_init();
-	new->win_ptr = mlx_new_window(new->mlx_ptr, 1000, 1000,
+	new->win_ptr = mlx_new_window(new->mlx_ptr, new->win_width, new->win_heidth,
 			"Wolf3d");
-	new->img1_ptr = mlx_new_image(new->mlx_ptr, 1000, 1000);
+	new->img1_ptr = mlx_new_image(new->mlx_ptr, new->win_width, new->win_heidth);
 	new->start_img1 = mlx_get_data_addr(new->img1_ptr, &(new->bpp),
 			&(new->size_line), &(new->endian));
 	/*new->img2_ptr = mlx_new_image(new->mlx_ptr, 1000, 1000);
@@ -69,6 +69,8 @@ t_wolf	*create_struct()
 	}
 	new->player->x = 1.5;
 	new->player->y = 1.5;
+	new->win_width = 1900;
+	new->win_heidth = 1300;
 	new->player->angle = 0;
 	new->move_forward = 0;
 	new->move_back = 0;
