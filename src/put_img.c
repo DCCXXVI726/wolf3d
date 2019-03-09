@@ -239,7 +239,7 @@ int		put_img(t_wolf *wolf)
 			x1 = (double)i * wolf->win_width / wolf->iteration;
 			while (x1 < (i + 1) * (double) wolf->win_width / wolf->iteration && x1 < wolf->win_width)
 			{
-				((int*)wolf->start_img1)[((int)y1) * wolf->win_width + ((int)x1)] = color;
+				((int*)wolf->start_img)[((int)y1) * wolf->win_width + ((int)x1)] = color;
 				x1++;
 			}
 			y1++;
@@ -248,25 +248,28 @@ int		put_img(t_wolf *wolf)
 	}
 	y1 = 0;
 	x1 = 0;
-
-	/*while (y1  < 1000)
+	
+	while (y1 < wolf->win_heidth / 2)
 	{
-		while (x1 < 500)
+		
+		int new_y = y1 / (wolf->win_heidth / 2) * wolf->heigth_tx3;
+		while (x1 < wolf->win_width / 3)
 		{
-			if (((int*)wolf->start_img_tx3)[((int)(wolf->heigth_tx3 / (1000 / y1))) * wolf->width_tx3 + ((int)(wolf->width_tx3 / (1000 / x1)))] != 0x0E0E0E)
+			int new_x = x1 / (wolf->win_width / 3) * wolf->width_tx3;
+			if (((int*)wolf->start_img_tx3)[new_y * wolf->width_tx3 + new_x] != 0xFFFFFF)
 			{
-				color = ((int*)wolf->start_img_tx3)[((int)(wolf->heigth_tx3 / (1000 / y1))) * wolf->width_tx3 + ((int)(wolf->width_tx3 / (1000 / x1)))];
-				((int*)wolf->start_img1)[(int)(y1 * 1000 + x1)] = color;
+				color = ((int*)wolf->start_img_tx3)[new_y * wolf->width_tx3 + new_x] ;
+				((int*)wolf->start_img)[(int)(((y1 + wolf->win_heidth / 2) * wolf->win_width) + (x1 + wolf->win_width / 3))] = color;
 			}
 			x1++;
 		}
 		x1 = 0;
 		y1++;
-	}*/
+	}
 
 	wolf->old_time = wolf->time;
 	gettimeofday(&wolf->time, NULL);
-	mlx_put_image_to_window(wolf->mlx_ptr, wolf->win_ptr, wolf->img1_ptr, 0, 0);
+	mlx_put_image_to_window(wolf->mlx_ptr, wolf->win_ptr, wolf->img_ptr, 0, 0);
 	if (wolf->time.tv_sec > wolf->old_time.tv_sec)
 		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, 0, 0, 0xFF0000, ft_itoa(((int)(1000000 / (wolf->time.tv_usec + 1000000 - wolf->old_time.tv_usec)))));
 	else

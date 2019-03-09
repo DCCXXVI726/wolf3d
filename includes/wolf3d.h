@@ -33,12 +33,11 @@ typedef	struct	s_wolf
 	int			win_width;
 	void		*mlx_ptr;
 	void		*win_ptr;
-	void		*img1_ptr;
-	char		*start_img1;
+	void		*img_ptr;
+	char		*start_img;
 	int			bpp;
 	int			size_line;
 	int			endian;
-	t_opencl	*ft_opencl;
 	size_t		limit;
 	t_player	*player;
 	int			width;

@@ -31,7 +31,7 @@ void		put_player(t_wolf *wolf)
 		while (i < 5)
 		{
 			if ((i + x >= 0) && (i + x < 1000) && (k + y >= 0) && (k + y < 1000))
-				((int*)wolf->start_img1)[(y + k) * 1000 + x + i] = 0xFF0000;
+				((int*)wolf->start_img)[(y + k) * 1000 + x + i] = 0xFF0000;
 			i++;
 		}
 		k++;
@@ -44,7 +44,7 @@ void		put_player(t_wolf *wolf)
 		while (i < 3)
 		{
 			if ((i + x >= 0) && (i + x < 1000) && (k + y >= 0) && (k + y < 1000))
-				((int*)wolf->start_img1)[(y + k) * 1000 + x + i] = 0xFFFF00;
+				((int*)wolf->start_img)[(y + k) * 1000 + x + i] = 0xFFFF00;
 			i++;
 		}
 		k++;
