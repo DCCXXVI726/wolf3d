@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/09 15:52:21 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/09 17:46:45 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef	struct		s_wolf
 	int				line_horizon;
 	double			step_ill;
 	t_texture		*tx;
+	t_texture		*curr_tx;
 }					t_wolf;
 
 void				moving(t_wolf *wolf);
