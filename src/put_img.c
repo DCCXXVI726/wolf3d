@@ -144,7 +144,7 @@ int	put_img(t_wolf *wolf)
 	int orientation;
 	double pos;
 
-	if (wolf->menu == 1)
+	if (wolf->menu == 0)
 	{
 		moving(wolf);
 		i = 0;
