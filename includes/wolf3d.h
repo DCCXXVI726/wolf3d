@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/09 17:46:45 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/09 18:05:35 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef	struct		s_wolf
 	double			step_ill;
 	t_texture		*tx;
 	t_texture		*curr_tx;
+	int				menu;
 }					t_wolf;
 
 void				moving(t_wolf *wolf);
@@ -79,4 +80,5 @@ int					key_press(int key, t_wolf *wolf);
 int					key_release(int key, t_wolf *wolf);
 void				put_player(t_wolf *wolf);
 int					mouse_move(int x, int y, t_wolf *wolf);
+void    menu (t_wolf *wolf);
 #endif

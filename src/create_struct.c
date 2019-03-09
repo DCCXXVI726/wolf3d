@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/09 15:08:46 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/09 18:13:14 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	read_map(t_wolf *new, char *name)
 
 static void	add_textures(t_wolf *new)
 {
-	if ((new->tx = (t_texture*)malloc(sizeof(t_texture) * 3)) == 0)
+	if ((new->tx = (t_texture*)malloc(sizeof(t_texture) * 5)) == 0)
 		check_error_n_exit(1, "Didn't create texture struct");
 	new->tx->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
 			"textures/WALL1.xpm", &new->tx->width, &new->tx->heidth);
@@ -60,6 +60,18 @@ static void	add_textures(t_wolf *new)
 	(new->tx + 2)->start_img = mlx_get_data_addr((new->tx + 2)->img_ptr,
 			&((new->tx + 2)->bpp), &((new->tx + 2)->size_line),
 			&((new->tx + 2)->endian));
+	(new->tx + 3)->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
+			"textures/WALL2.xpm", &((new->tx + 3)->width),
+			&((new->tx + 3)->heidth));
+	(new->tx + 3)->start_img = mlx_get_data_addr((new->tx + 3)->img_ptr,
+			&((new->tx + 3)->bpp), &((new->tx + 3)->size_line),
+			&((new->tx + 3)->endian));
+	(new->tx + 4)->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
+			"textures/WALL3.xpm", &((new->tx + 4)->width),
+			&((new->tx + 4)->heidth));
+	(new->tx + 4)->start_img = mlx_get_data_addr((new->tx + 4)->img_ptr,
+			&((new->tx + 4)->bpp), &((new->tx + 4)->size_line),
+			&((new->tx + 4)->endian));
 }
 
 static void	init_mlx(t_wolf *new)
@@ -83,8 +95,8 @@ t_wolf		*create_struct(void)
 		check_error_n_exit(1, "Didn't create player");
 	new->player->x = 1.5;
 	new->player->y = 1.5;
-	new->win_width = 1000;
-	new->win_heidth = 500;
+	new->win_width = 1500;
+	new->win_heidth = 1000;
 	new->player->angle = 0;
 	new->move_forward = 0;
 	new->move_back = 0;
@@ -98,5 +110,6 @@ t_wolf		*create_struct(void)
 	read_map(new, "map");
 	new->fov = 3.14 / 3;
 	new->iteration = 1000;
+	new->menu = 0;
 	return (new);
 }

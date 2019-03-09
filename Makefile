@@ -6,13 +6,13 @@
 #    By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 17:25:57 by thorker           #+#    #+#              #
-#    Updated: 2019/03/09 16:32:56 by thorker          ###   ########.fr        #
+#    Updated: 2019/03/09 18:05:52 by thorker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = wolf3d
 FLAG = -Wall -Wextra -Werror -g
-SRC = create_struct.c hook.c put_img.c key_hook.c mouse_hook.c main.c move.c
+SRC = create_struct.c hook.c put_img.c key_hook.c mouse_hook.c main.c move.c menu.c
 INC = -I /usr/local/include -I libft/ -I ./includes
 LIB = -L /usr/local/lib -lmlx -L libft/ -lft
 FRWR = -framework OpenGL -framework OpenCL -framework AppKit
