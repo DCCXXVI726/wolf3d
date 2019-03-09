@@ -62,10 +62,16 @@ static void	add_textures(t_wolf *new)
 			&((new->tx + 2)->endian));
 	(new->tx + 3)->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
 			"textures/WALL2.xpm", &((new->tx + 3)->width),
-			&((new->tx + 2)->heidth));
+			&((new->tx + 3)->heidth));
 	(new->tx + 3)->start_img = mlx_get_data_addr((new->tx + 3)->img_ptr,
 			&((new->tx + 3)->bpp), &((new->tx + 3)->size_line),
 			&((new->tx + 3)->endian));
+	(new->tx + 4)->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
+			"textures/WALL3.xpm", &((new->tx + 4)->width),
+			&((new->tx + 4)->heidth));
+	(new->tx + 4)->start_img = mlx_get_data_addr((new->tx + 4)->img_ptr,
+			&((new->tx + 4)->bpp), &((new->tx + 4)->size_line),
+			&((new->tx + 4)->endian));
 }
 
 static void	init_mlx(t_wolf *new)
