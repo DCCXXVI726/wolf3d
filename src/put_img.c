@@ -195,10 +195,10 @@ int		put_img(t_wolf *wolf)
 	}
 	else
 		menu(wolf);
-
 	wolf->old_time = wolf->time;
 	gettimeofday(&wolf->time, NULL);
 	mlx_put_image_to_window(wolf->mlx_ptr, wolf->win_ptr, wolf->img_ptr, 0, 0);
+	
 	if (wolf->time.tv_sec > wolf->old_time.tv_sec)
 		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, 0, 0, 0xFF0000, ft_itoa(((int)(1000000 / (wolf->time.tv_usec + 1000000 - wolf->old_time.tv_usec)))));
 	else

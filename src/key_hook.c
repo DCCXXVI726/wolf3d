@@ -42,12 +42,16 @@ int	key_press(int key, t_wolf *wolf)
 	}
 	if (key == 13 || key == 1 || key == 0 || key == 2)
 		player_move(key, wolf, 1);
-	if (key == 48)
+	if (key == 48 && wolf->menu == 1)
+		wolf->menu = 0;
+	else if (key == 48 && wolf->menu == 0)
+		wolf->menu = 1;
+	if ((wolf->menu == 1 && (key == 126 || key == 125)))
 	{
-		if (wolf->menu == 1)
-			wolf->menu = 0;
-		else
-			wolf->menu = 1;
+		if (key == 126 && (wolf->menu_string > 1))
+			wolf->menu_string -= 1;
+		if (key == 125 && (wolf->menu_string < 4))
+			wolf->menu_string += 1;
 	}
 	if (key == 257)
 		wolf->step = 0.03;

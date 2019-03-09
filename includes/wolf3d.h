@@ -69,6 +69,7 @@ typedef	struct		s_wolf
 	double			step_ill;
 	t_texture		*tx;
 	int				menu;
+	int				menu_string;
 }					t_wolf;
 
 void				moving(t_wolf *wolf);
@@ -79,5 +80,5 @@ int					key_press(int key, t_wolf *wolf);
 int					key_release(int key, t_wolf *wolf);
 void				put_player(t_wolf *wolf);
 int					mouse_move(int x, int y, t_wolf *wolf);
-void    menu (t_wolf *wolf);
+void    			menu (t_wolf *wolf);
 #endif
