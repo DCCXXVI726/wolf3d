@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/09 14:22:29 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/09 15:01:15 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct	s_texture
 	int			bpp;
 	int			size_line;
 	int			endian;
-	int			heigth;
+	int			heidth;
 	int			width;
 }				t_texture;
 
@@ -88,7 +88,7 @@ typedef	struct	s_wolf
 	char        *start_img_tx3;
 	int         width_tx3;
 	int         heigth_tx3;
-	t_texture	*texture;
+	t_texture	*tx;
 }				t_wolf;
 
 int				put_img(t_wolf *wolf);
