@@ -49,6 +49,11 @@ void	draw_square(t_wolf *wolf, double part, int color, int shift)
 	}
 }
 
+void	add_text(t_wolf *wolf)
+{
+	
+}
+
 void	menu(t_wolf *wolf)
 {
 	draw_square(wolf, 1, 0xff3333, 0);

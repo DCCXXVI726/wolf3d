@@ -82,4 +82,5 @@ int					key_release(int key, t_wolf *wolf);
 void				put_player(t_wolf *wolf);
 int					mouse_move(int x, int y, t_wolf *wolf);
 void    			menu (t_wolf *wolf);
+void				add_text(t_wolf *wolf);
 #endif
