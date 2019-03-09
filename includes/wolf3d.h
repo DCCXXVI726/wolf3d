@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/09 15:01:15 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/09 15:52:21 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef	struct		s_wolf
 	t_texture		*tx;
 }					t_wolf;
 
+void				moving(t_wolf *wolf);
 int					put_img(t_wolf *wolf);
 t_wolf				*create_struct();
 void				hook(t_wolf *wolf);
