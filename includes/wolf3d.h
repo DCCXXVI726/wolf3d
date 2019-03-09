@@ -71,6 +71,7 @@ typedef	struct		s_wolf
 	int				menu;
 	int				menu_string;
 	double			*fov;
+	int				*mouse_speed;
 }					t_wolf;
 
 void				moving(t_wolf *wolf);

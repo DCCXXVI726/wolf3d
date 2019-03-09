@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-int	player_move(int key, t_wolf *wolf, char k)
+int		player_move(int key, t_wolf *wolf, char k)
 {
 	if (key == 13 && k == 1)
 		wolf->move_forward = 1;
@@ -33,7 +33,30 @@ int	player_move(int key, t_wolf *wolf, char k)
 	return (0);
 }
 
-int	key_press(int key, t_wolf *wolf)
+int		key_menu(int key, t_wolf *wolf)
+{
+	if (wolf->menu_string == 1)
+	{
+		if (wolf->fov[0] == 3)
+			wolf->fov[0] = 1;
+		else
+			wolf->fov[0]++;
+	}
+	if (wolf->menu_string == 2)
+	{
+		if (wolf->mouse_speed[0] == 3)
+			wolf->mouse_speed[0] = 1;
+		else
+			wolf->mouse_speed[0]++;
+	}
+	if (key == 126 && (wolf->menu_string > 1))
+		wolf->menu_string -= 1;
+	if (key == 125 && (wolf->menu_string < 4))
+		wolf->menu_string += 1;
+	return (0);
+}
+
+int		key_press(int key, t_wolf *wolf)
 {
 	if (key == 53)
 	{
@@ -45,21 +68,9 @@ int	key_press(int key, t_wolf *wolf)
 	if (key == 48 && wolf->menu == 1)
 		wolf->menu = 0;
 	else if (key == 48 && wolf->menu == 0)
-		wolf->menu = 1;
-	if ((wolf->menu == 1 && (key == 126 || key == 125)))
-	{
-		if (key == 126 && (wolf->menu_string > 1))
-			wolf->menu_string -= 1;
-		if (key == 125 && (wolf->menu_string < 4))
-			wolf->menu_string += 1;
-	}                     
-	if (key == 49 && wolf->menu_string == 1 && wolf->menu == 1)
-	{
-		if (wolf->fov[0] == 3)
-			wolf->fov[0] = 1;
-		else
-			wolf->fov[0]++;
-	}
+		wolf->menu = 1;                   
+	if ((key == 49 || key == 125 || key == 126) && wolf->menu == 1)
+		key_menu(key, wolf);
 	if (key == 257)
 		wolf->step = 0.03;
 	if (key == 256)
@@ -69,7 +80,7 @@ int	key_press(int key, t_wolf *wolf)
 	return (0);
 }
 
-int	key_release(int key, t_wolf *wolf)
+int		key_release(int key, t_wolf *wolf)
 {
 	if (key == 13 || key == 1 || key == 0 || key == 2)
 		player_move(key, wolf, 0);

@@ -94,10 +94,16 @@ t_wolf		*create_struct(void)
 		check_error_n_exit(1, "Didn't create player");
 	if ((new->fov = (double*)malloc(sizeof(double) * 3)) == 0)
 		check_error_n_exit(1, "Didn't create fov_array");
+	if ((new->mouse_speed = (int*)malloc(sizeof(int) * 3)) == 0)
+		check_error_n_exit(1, "Didn't create mouse_speed");
 	new->fov[0] = 1;
 	new->fov[1] = 3.14 / 3;
 	new->fov[2] = 3.14 / 4;
 	new->fov[3] = 3.14 / 6;
+	new->mouse_speed[0] = 2;
+	new->mouse_speed[1] = 10;
+	new->mouse_speed[2] = 15;
+	new->mouse_speed[3] = 5;
 	new->player->x = 1.5;
 	new->player->y = 1.5;
 	new->win_width = 1500;
@@ -113,7 +119,7 @@ t_wolf		*create_struct(void)
 	gettimeofday(&new->time, NULL);
 	init_mlx(new);
 	read_map(new, "map");
-	new->iteration = 1000;
+	new->iteration = 400;
 	new->menu = 0;
 	new->menu_string = 1;
 	return (new);
