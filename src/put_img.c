@@ -6,11 +6,93 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 13:58:41 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/07 15:28:45 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/09 15:02:11 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+
+int 	moving(t_wolf *wolf)
+{
+    double x;
+    double y;
+    
+    if (wolf->move_back == 1 || wolf->move_forward == 1
+        || wolf->move_left == 1 || wolf->move_right == 1)
+    {
+        if (wolf->step > 0.01)
+            wolf->step_count += 2;
+        else
+            wolf->step_count += 1;
+        if (wolf->step_count > 30)
+        {
+            system("afplay sounds/step.wav &");
+            wolf->step_count = 0;
+        }
+        if (wolf->step_ill == 0 || wolf->step == 3.14 / 120)
+            wolf->step_ill += 3.14 / 120;
+        else if (wolf->step_ill < 3.14)
+            wolf->step_ill += 3.14 / 60;
+        else
+            wolf->step_ill = 3.14 / 60;
+        wolf->line_horizon = wolf->win_heidth / 2 + wolf->win_heidth / 20 * sin(wolf->step_ill);
+    }
+    else
+    {
+        if (wolf->step_ill > 3.14 / 2)
+        {
+            wolf->step_ill += 3.14 / 60;
+            if (wolf->step_ill >= 3.14)
+                wolf->step_ill = 0;
+        }
+        else if (wolf->step_ill >= 3.14 / 60)
+            wolf->step_ill -= 3.14 / 60;
+        else if (wolf->step_ill == 3.14 / 120)
+            wolf->step_ill = 0;
+        wolf->line_horizon = wolf->win_heidth / 2 + wolf->win_heidth / 20  * sin(wolf->step_ill);
+    }
+    if (wolf->move_forward == 1)
+    {
+        x = wolf->player->x + wolf->step * cos(wolf->player->angle);
+        y = wolf->player->y - wolf->step * sin(wolf->player->angle);
+        if (wolf->map[(int)(y) * wolf->width + (int)(x)] == '0')
+        {
+            wolf->player->x = x;
+            wolf->player->y = y;
+        }
+    }
+    if (wolf->move_back    == 1)
+    {
+        x = wolf->player->x - wolf->step * cos(wolf->player->angle);
+        y = wolf->player->y + wolf->step * sin(wolf->player->angle);
+        if (wolf->map[(int)(y) * wolf->width + (int)(x)] == '0')
+        {
+            wolf->player->x = x;
+            wolf->player->y = y;
+        }
+    }
+    if (wolf->move_right == 1)
+    {
+        x = wolf->player->x - wolf->step * cos(wolf->player->angle + 3.14 / 2);
+        y = wolf->player->y + wolf->step * sin(wolf->player->angle + 3.14 / 2);
+        if (wolf->map[(int)(y) * wolf->width + (int)(x)] == '0')
+        {
+            wolf->player->x = x;
+            wolf->player->y = y;
+        }
+    }
+    if (wolf->move_left == 1)
+    {
+        x = wolf->player->x - wolf->step * cos(wolf->player->angle - 3.14 / 2);
+        y = wolf->player->y + wolf->step * sin(wolf->player->angle - 3.14 / 2);
+        if (wolf->map[(int)(y) * wolf->width + (int)(x)] == '0')
+        {
+            wolf->player->x = x;
+            wolf->player->y = y;
+        }
+    }
+	return (0);
+}
 
 int		put_img(t_wolf *wolf)
 {
@@ -24,86 +106,11 @@ int		put_img(t_wolf *wolf)
 	double y_step;
 	double p;
 	int color;
-	double x;
-	double y;
 	int color_wall;
 	double pos;
 
 
-	if (wolf->move_back == 1 || wolf->move_forward == 1
-		|| wolf->move_left == 1 || wolf->move_right == 1)
-	{
-		if (wolf->step > 0.01)
-			wolf->step_count += 2;
-		else
-			wolf->step_count += 1;
-		if (wolf->step_count > 30)
-		{
-			system("afplay sounds/step.wav &");
-			wolf->step_count = 0;
-		}
-		if (wolf->step_ill == 0 || wolf->step == 3.14 / 120)
-			wolf->step_ill += 3.14 / 120;
-		else if (wolf->step_ill < 3.14)
-			wolf->step_ill += 3.14 / 60;
-		else
-			wolf->step_ill = 3.14 / 60;
-		wolf->line_horizon = wolf->win_heidth / 2 + wolf->win_heidth / 20 * sin(wolf->step_ill);
-	}
-	else
-	{
-		if (wolf->step_ill > 3.14 / 2)
-		{
-			wolf->step_ill += 3.14 / 60;
-			if (wolf->step_ill >= 3.14)
-				wolf->step_ill = 0;
-		}
-		else if (wolf->step_ill >= 3.14 / 60)
-			wolf->step_ill -= 3.14 / 60;
-		else if (wolf->step_ill == 3.14 / 120)
-			wolf->step_ill = 0;
-		wolf->line_horizon = wolf->win_heidth / 2 + wolf->win_heidth / 20  * sin(wolf->step_ill);
-	}
-	if (wolf->move_forward == 1)
-	{
-		x = wolf->player->x + wolf->step * cos(wolf->player->angle);
-		y = wolf->player->y - wolf->step * sin(wolf->player->angle);
-		if (wolf->map[(int)(y) * wolf->width + (int)(x)] == '0')
-		{
-			wolf->player->x = x;
-			wolf->player->y = y;
-		}
-	}
-	if (wolf->move_back	== 1)
-	{
-		x = wolf->player->x - wolf->step * cos(wolf->player->angle);
-		y = wolf->player->y + wolf->step * sin(wolf->player->angle);
-		if (wolf->map[(int)(y) * wolf->width + (int)(x)] == '0')
-		{
-			wolf->player->x = x;
-			wolf->player->y = y;
-		}
-	}
-	if (wolf->move_right == 1)
-	{
-		x = wolf->player->x - wolf->step * cos(wolf->player->angle + 3.14 / 2);
-		y = wolf->player->y + wolf->step * sin(wolf->player->angle + 3.14 / 2);
-		if (wolf->map[(int)(y) * wolf->width + (int)(x)] == '0')
-		{
-			wolf->player->x = x;
-			wolf->player->y = y;
-		}
-	}
-	if (wolf->move_left == 1)
-	{
-		x = wolf->player->x - wolf->step * cos(wolf->player->angle - 3.14 / 2);
-		y = wolf->player->y + wolf->step * sin(wolf->player->angle - 3.14 / 2);
-		if (wolf->map[(int)(y) * wolf->width + (int)(x)] == '0')
-		{
-			wolf->player->x = x;
-			wolf->player->y = y;
-		}
-	}
+	moving(wolf);
 	i = 0;
 	while (i < wolf->iteration)
 	{
@@ -216,9 +223,9 @@ int		put_img(t_wolf *wolf)
             p = fabs(900 / p);
 		y1 = 0;
 		if (color_wall == 0x008800)
-			pos = (int)(pos * wolf->width_tx2);
+			pos = (int)(pos * (wolf->tx + 1)->width);
 		else
-			pos = (int)(pos * wolf->width_tx);
+			pos = (int)(pos * (wolf->tx)->width);
 		while (y1 < wolf->win_heidth)
 		{
 			if (y1 < wolf->line_horizon - p / 2)
@@ -227,11 +234,11 @@ int		put_img(t_wolf *wolf)
 			{
 				if (color_wall == 0x008800)
 				{
-					color = ((int*)wolf->start_img_tx2)[(int)pos + (int)((y1 - wolf->line_horizon + p / 2) / p * wolf->heigth_tx2) * wolf->width_tx2];
+					color = ((int*)(wolf->tx + 1)->start_img)[(int)pos + (int)((y1 - wolf->line_horizon + p / 2) / p * (wolf->tx + 1)->heidth) * (wolf->tx + 1)->width];
 				}
 				else
 				{
-					color = ((int*)wolf->start_img_tx)[(int)pos + (int)((y1 - wolf->line_horizon + p / 2) / p * wolf->heigth_tx) * wolf->width_tx];
+					color = ((int*)wolf->tx->start_img)[(int)pos + (int)((y1 - wolf->line_horizon + p / 2) / p * wolf->tx->heidth) * wolf->tx->width];
 				}
 			}
 			else
@@ -252,13 +259,13 @@ int		put_img(t_wolf *wolf)
 	while (y1 < wolf->win_heidth / 2)
 	{
 		
-		int new_y = y1 / (wolf->win_heidth / 2) * wolf->heigth_tx3;
+		int new_y = y1 / (wolf->win_heidth / 2) * (wolf->tx + 2)->heidth;
 		while (x1 < wolf->win_width / 3)
 		{
-			int new_x = x1 / (wolf->win_width / 3) * wolf->width_tx3;
-			if (((int*)wolf->start_img_tx3)[new_y * wolf->width_tx3 + new_x] != 0xFFFFFF)
+			int new_x = x1 / (wolf->win_width / 3) * (wolf->tx + 2)->width ;
+			if (((int*)(wolf->tx + 2)->start_img)[new_y * (wolf->tx + 2)->width + new_x] != 0xFFFFFF)
 			{
-				color = ((int*)wolf->start_img_tx3)[new_y * wolf->width_tx3 + new_x] ;
+				color = ((int*)(wolf->tx + 2)->start_img)[new_y * (wolf->tx + 2)->width + new_x] ;
 				((int*)wolf->start_img)[(int)(((y1 + wolf->win_heidth / 2) * wolf->win_width) + (x1 + wolf->win_width / 3))] = color;
 			}
 			x1++;
