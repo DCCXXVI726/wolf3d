@@ -57,7 +57,6 @@ typedef	struct		s_wolf
 	char			*map;
 	cl_mem			cl_map;
 	int				iteration;
-	double			fov;
 	int				mouse_x;
 	double			step;
 	int				step_count;
@@ -71,6 +70,7 @@ typedef	struct		s_wolf
 	t_texture		*curr_tx;
 	int				menu;
 	int				menu_string;
+	double			*fov;
 }					t_wolf;
 
 void				moving(t_wolf *wolf);
@@ -82,5 +82,5 @@ int					key_release(int key, t_wolf *wolf);
 void				put_player(t_wolf *wolf);
 int					mouse_move(int x, int y, t_wolf *wolf);
 void    			menu (t_wolf *wolf);
-void				add_text(t_wolf *wolf);
+int					add_text(t_wolf *wolf);
 #endif

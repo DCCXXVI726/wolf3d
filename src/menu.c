@@ -49,9 +49,19 @@ void	draw_square(t_wolf *wolf, double part, int color, int shift)
 	}
 }
 
-void	add_text(t_wolf *wolf)
+int		add_text(t_wolf *wolf)
 {
-	
+	if (wolf->menu == 1)
+	{
+		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, wolf->win_width / 2, wolf->win_heidth / 100 * 20, 0x000000, "Menu:");
+		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, wolf->win_width / 3, wolf->win_heidth / 100 * 30, 0x000000, "Change FOV:");
+		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, wolf->win_width / 100 * 42, wolf->win_heidth / 100 * 30, 0x000000, ft_itoa(wolf->fov[(int)(wolf->fov[0])] / 3.14 * 180));
+		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, wolf->win_width / 3, wolf->win_heidth / 100 * 42, 0x000000, "SRAKA:");
+		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, wolf->win_width / 3, wolf->win_heidth / 100 * 55, 0x000000, "SRAKA:");
+		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, wolf->win_width / 3, wolf->win_heidth / 100 * 68, 0x000000, "SRAKA:");
+		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, wolf->win_width / 100 * 45, wolf->win_heidth / 100 * 78, 0x000000, "made by SRAKA 2019");
+	}
+	return (0);
 }
 
 void	menu(t_wolf *wolf)

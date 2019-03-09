@@ -52,6 +52,13 @@ int	key_press(int key, t_wolf *wolf)
 			wolf->menu_string -= 1;
 		if (key == 125 && (wolf->menu_string < 4))
 			wolf->menu_string += 1;
+	}                     
+	if (key == 49 && wolf->menu_string == 1 && wolf->menu == 1)
+	{
+		if (wolf->fov[0] == 3)
+			wolf->fov[0] = 1;
+		else
+			wolf->fov[0]++;
 	}
 	if (key == 257)
 		wolf->step = 0.03;

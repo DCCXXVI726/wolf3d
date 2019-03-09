@@ -94,7 +94,7 @@ double	get_p(t_wolf *wolf, int i, int *orientation, double *pos)
 	double	x_step;
 	double	y_step;
 
-	angle = wolf->player->angle + wolf->fov * (1.0/ 2 - ((double)i) / wolf->iteration);
+	angle = wolf->player->angle + wolf->fov[(int)(wolf->fov[0])] * (1.0/ 2 - ((double)i) / wolf->iteration);
 	if (cos(angle) > 0)
 	{
 		x1 = 1 + (int)(wolf->player->x);
@@ -153,7 +153,7 @@ int	put_img(t_wolf *wolf)
 			orientation = 0;
 			p = get_p(wolf, i, &orientation, &pos);
 			if (p != 0)
-				p = fabs(900 / p);
+				p = fabs(1500 / p);
 			y1 = 0;
 			if (orientation == 1)
 				wolf->curr_tx = wolf->tx;
