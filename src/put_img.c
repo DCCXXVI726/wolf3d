@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 13:58:41 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/07 16:13:40 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/09 14:35:26 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,9 +223,9 @@ int		put_img(t_wolf *wolf)
             p = fabs(900 / p);
 		y1 = 0;
 		if (color_wall == 0x008800)
-			pos = (int)(pos * wolf->width_tx2);
+			pos = (int)(pos * (wolf->texture + 1)->width);
 		else
-			pos = (int)(pos * wolf->width_tx);
+			pos = (int)(pos * (wolf->texture)->width);
 		while (y1 < wolf->win_heidth)
 		{
 			if (y1 < wolf->line_horizon - p / 2)
@@ -234,11 +234,11 @@ int		put_img(t_wolf *wolf)
 			{
 				if (color_wall == 0x008800)
 				{
-					color = ((int*)wolf->start_img_tx2)[(int)pos + (int)((y1 - wolf->line_horizon + p / 2) / p * wolf->heigth_tx2) * wolf->width_tx2];
+					color = ((int*)(wolf->texture + 1)->start_img)[(int)pos + (int)((y1 - wolf->line_horizon + p / 2) / p * (wolf->texture + 1)->heigth) * (wolf->texture + 1)->width];
 				}
 				else
 				{
-					color = ((int*)wolf->start_img_tx)[(int)pos + (int)((y1 - wolf->line_horizon + p / 2) / p * wolf->heigth_tx) * wolf->width_tx];
+					color = ((int*)(wolf->texture)->start_img)[(int)pos + (int)((y1 - wolf->line_horizon + p / 2) / p * (wolf->texture)->heigth) * (wolf->texture)->width];
 				}
 			}
 			else

@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/07 15:29:44 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/09 14:33:56 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,19 @@ static void	init_mlx(t_wolf *new)
 			&(new->size_line), &(new->endian));*/
 }
 
+void	add_textures(t_wolf *new)
+{
+	if ((new->texture = (t_texture*)malloc(sizeof(t_texture) * 3)) == 0)
+		check_error_n_exit(1, "Didn't create texture struct");
+	new->texture->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr, "textures/WALL1.xpm", &new->texture->width, &new->texture->heigth);
+	new->texture->start_img = mlx_get_data_addr(new->texture->img_ptr, &new->texture->bpp, &new->texture->size_line, &new->texture->endian);
+	(new->texture + 1)->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr, "textures/WALL0.xpm", &((new->texture + 1)->width), &((new->texture + 1)->heigth));
+	(new->texture + 1)->start_img = mlx_get_data_addr((new->texture + 1)->img_ptr, &((new->texture + 1)->bpp), &((new->texture + 1)->size_line), &((new->texture + 1)->endian));
+	/*(new->texture + 2)->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr, "textures/hand1.xpm", &((new->texture + 2)->width), &((new->texture + 2)->heigth));
+	(new->texture + 2)->start_img = mlx_get_data_addr((new->texture + 2)->img_ptr, &((new->texture + 2)->bpp), &((new->texture + 2)->size_line), &((new->texture + 2)->endian));
+	*/
+}
+
 t_wolf	*create_struct()
 {
 	t_wolf  *new;
@@ -82,6 +95,7 @@ t_wolf	*create_struct()
 	new->step_count = 0;
 	gettimeofday(&new->time, NULL);
 	init_mlx(new);
+	add_textures(new);
 	read_map(new, "map");
 	new->fov = 3.14/3;
 	new->iteration = 1000;
