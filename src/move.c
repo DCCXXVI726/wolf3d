@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 15:33:14 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/09 15:49:54 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/09 15:56:08 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "wolf3d.h"
@@ -74,14 +74,14 @@ void     moving(t_wolf *wolf)
 		if (wolf->map[(int)(wolf->player->y + x_change) * wolf->width
 				+ (int)(wolf->player->x + y_change)] == '0')
 		{
-			wolf->player->x += x_change;
-			wolf->player->y += y_change;
+			wolf->player->x += y_change;
+			wolf->player->y += x_change;
 		}
 	if (wolf->move_left == 1)
 		if (wolf->map[(int)(wolf->player->y - x_change) * wolf->width
 				+ (int)(wolf->player->x - y_change)] == '0')
 		{
-			wolf->player->x -= x_change;
-			wolf->player->y -= y_change;
+			wolf->player->x -= y_change;
+			wolf->player->y -= x_change;
 		}
 }
