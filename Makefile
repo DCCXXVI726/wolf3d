@@ -12,7 +12,7 @@
 
 NAME = wolf3d
 FLAG = -Wall -Wextra -Werror -g
-SRC = create_struct.c hook.c put_img.c key_hook.c mouse_hook.c main.c player.c
+SRC = create_struct.c hook.c put_img.c key_hook.c mouse_hook.c main.c
 INC = -I /usr/local/include -I libft/ -I ./includes
 LIB = -L /usr/local/lib -lmlx -L libft/ -lft
 FRWR = -framework OpenGL -framework OpenCL -framework AppKit
