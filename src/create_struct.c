@@ -60,6 +60,12 @@ static void	add_textures(t_wolf *new)
 	(new->tx + 2)->start_img = mlx_get_data_addr((new->tx + 2)->img_ptr,
 			&((new->tx + 2)->bpp), &((new->tx + 2)->size_line),
 			&((new->tx + 2)->endian));
+	(new->tx + 3)->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
+			"textures/WALL2.xpm", &((new->tx + 3)->width),
+			&((new->tx + 2)->heidth));
+	(new->tx + 3)->start_img = mlx_get_data_addr((new->tx + 3)->img_ptr,
+			&((new->tx + 3)->bpp), &((new->tx + 3)->size_line),
+			&((new->tx + 3)->endian));
 }
 
 static void	init_mlx(t_wolf *new)
@@ -98,5 +104,6 @@ t_wolf		*create_struct(void)
 	read_map(new, "map");
 	new->fov = 3.14 / 3;
 	new->iteration = 1000;
+	new->menu = 0;
 	return (new);
 }
