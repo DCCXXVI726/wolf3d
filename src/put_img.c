@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 13:58:41 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/11 16:57:02 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/11 17:38:47 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ static double	get_p(t_wolf *wolf, int i, int *orientation, double *pos)
 	p = 0;
 	if (*orientation != 0)
 	{
-		p = (x1 - wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y1) * sin(wolf->player->angle);
+		p = (x1 - wolf->player->x) * cos(wolf->player->angle) +
+		(wolf->player->y - y1) * sin(wolf->player->angle);
 		*pos = y1 - (int)y1;
 	}
 	if (get_p2(wolf, &angle, &p, pos) == 1)
@@ -126,79 +127,89 @@ static void		draw_hands(t_wolf *wolf)
 	int		color;
 
 	y = -1;
-	while (y < wolf->win_heidth / 2)
+	while (++y < wolf->win_heidth / 2)
 	{
-		while (++y < wolf->win_heidth / 2)
+		new_y = y / (wolf->win_heidth / 2) * (wolf->tx + 2)->heidth;
+		x = -1;
+		while (++x < wolf->win_width / 3)
 		{
-			new_y = y / (wolf->win_heidth / 2) * (wolf->tx + 2)->heidth;
-			x = -1;
-			while (++x < wolf->win_width / 3)
+			new_x = x / (wolf->win_width / 3) * (wolf->tx + 2)->width;
+			if (((int*)(wolf->tx + 2)->start_img)[new_y *
+				(wolf->tx + 2)->width + new_x] != 0xFFFFFF)
 			{
-				new_x = x / (wolf->win_width / 3) * (wolf->tx + 2)->width;
-				if (((int*)(wolf->tx + 2)->start_img)[new_y *
-					(wolf->tx + 2)->width + new_x] != 0xFFFFFF)
-				{
-					color = ((int*)(wolf->tx + 2)->start_img)[new_y *
-						(wolf->tx + 2)->width + new_x];
-					((int*)wolf->start_img)[(int)(((y + wolf->win_heidth / 2) *
-						wolf->win_width) + (x + wolf->win_width / 100 * 45))] = color;
-				}
-			}	
+				color = ((int*)(wolf->tx + 2)->start_img)[new_y *
+					(wolf->tx + 2)->width + new_x];
+				((int*)wolf->start_img)[(int)(((y + wolf->win_heidth / 2) *
+					wolf->win_width) +
+						(x + wolf->win_width / 100 * 45))] = color;
+			}
 		}
 	}
 }
 
+static void	define_wall(t_wolf *wolf)
+{
+	if (wolf->orientation == 1)
+		wolf->curr_tx = wolf->tx;
+	else if (wolf->orientation == 2)
+		wolf->curr_tx = wolf->tx + 1;
+	else if (wolf->orientation == 3)
+		wolf->curr_tx = wolf->tx + 3;
+	else
+		wolf->curr_tx = wolf->tx + 4;
+}
+
+static void	define_color(t_wolf *wolf, t_main_window *window)
+{
+	if (window->y < wolf->line_horizon - window->p / 2)
+		window->color = 0xFFFFFF;
+	else if (window->y < wolf->line_horizon + window->p / 2)
+		window->color = ((int*)wolf->curr_tx->start_img)[(int)window->pos +
+			(int)((window->y - wolf->line_horizon + window->p / 2) /
+				window->p * wolf->curr_tx->heidth) * wolf->curr_tx->width];
+	else
+		window->color = 0x666666;
+}
+
+static void	main_window(t_wolf *wolf, t_main_window *window)
+{
+	while (++(window->i) < wolf->iteration)
+	{
+		wolf->orientation = 0;
+		window->p = get_p(wolf, window->i, &wolf->orientation, &window->pos);
+		if (window->p != 0)
+			window->p = fabs(1500 / window->p);
+		window->y = -1;
+		define_wall(wolf);
+		window->pos = (int)(window->pos * (wolf->curr_tx)->width);
+		while (++(window->y) < wolf->win_heidth)
+		{
+			define_color(wolf, window);
+			window->x = (double)window->i * wolf->win_width / wolf->iteration;
+			while (window->x < (window->i + 1) *
+				(double)wolf->win_width / wolf->iteration &&
+					window->x < wolf->win_width)
+			{
+				((int*)wolf->start_img)[(int)(window->y *
+					wolf->win_width + window->x)] = window->color;
+				window->x++;
+			}
+		}
+	}
+	draw_hands(wolf);
+}
+
 int			put_img(t_wolf *wolf)
 {
-	int		i;
-	double	x1;
-	double	y1;
-	double	p;
-	int		color;
-	int		orientation;
-	double	pos;
+	t_main_window *window;
 
+	if ((window = (t_main_window*)malloc(sizeof(t_main_window))) == 0)
+		check_error_n_exit(1, "Didn't create window sctruct");
+	window->i = 0;
 	if (wolf->menu == 0)
 	{
 		moving(wolf);
-		i = 0;
-		while (i < wolf->iteration)
-		{
-			orientation = 0;
-			p = get_p(wolf, i, &orientation, &pos);
-			if (p != 0)
-				p = fabs(1500 / p);
-			y1 = 0;
-			if (orientation == 1)
-				wolf->curr_tx = wolf->tx;
-			else if (orientation == 2)
-				wolf->curr_tx = wolf->tx + 1;
-			else if (orientation == 3)
-				wolf->curr_tx = wolf->tx + 3;
-			else
-				wolf->curr_tx = wolf->tx + 4;
-			pos = (int)(pos * (wolf->curr_tx)->width);
-			while (y1 < wolf->win_heidth)
-			{
-				if (y1 < wolf->line_horizon - p / 2)
-					color = 0xFFFFFF;
-				else if (y1 < wolf->line_horizon + p / 2)
-					color = ((int*)wolf->curr_tx->start_img)[(int)pos + (int)((y1 - wolf->line_horizon + p / 2) / p * wolf->curr_tx->heidth) * wolf->curr_tx->width];
-				else
-					color = 0x666666;
-				x1 = (double)i * wolf->win_width / wolf->iteration;
-				while (x1 < (i + 1) * (double)wolf->win_width / wolf->iteration &&
-					x1 < wolf->win_width)
-				{
-					((int*)wolf->start_img)[(int)(y1 * wolf->win_width +
-						x1)] = color;
-					x1++;
-				}
-				y1++;
-			}
-			i++;
-		}
-		draw_hands(wolf);
+		main_window(wolf, window);
 	}
 	else
 		menu(wolf);

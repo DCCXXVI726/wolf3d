@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/11 16:47:42 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/11 17:18:36 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ typedef struct		s_texture
 	int				heidth;
 	int				width;
 }					t_texture;
+
+typedef struct		s_main_window
+{
+	int				i;
+	double			x;
+	double			y;
+	double			p;
+	int				color;
+	double			pos;	
+}					t_main_window;
 
 typedef	struct		s_wolf
 {
@@ -73,6 +83,7 @@ typedef	struct		s_wolf
 	int				menu_string;
 	double			*fov;
 	int				*mouse_speed;
+	int				orientation;
 }					t_wolf;
 
 void				moving(t_wolf *wolf);
