@@ -40,44 +40,24 @@ static void	read_map(t_wolf *new, char *name)
 	new->map = tmp;
 }
 
+void		change_texture(t_wolf *new, int index, char *name)
+{
+	(new->tx + index)->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
+		name,&((new->tx + index)->width), &((new->tx + index)->heidth));
+	(new->tx + index)->start_img = mlx_get_data_addr((new->tx + index)->img_ptr,
+		&((new->tx + index)->bpp),
+			&((new->tx + index)->size_line), &((new->tx + index)->endian));
+}
 static void	add_textures(t_wolf *new)
 {
 	if ((new->tx = (t_texture*)malloc(sizeof(t_texture) * 6)) == 0)
 		check_error_n_exit(1, "Didn't create texture struct");
-	new->tx->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
-			"textures/WALL0.xpm", &new->tx->width, &new->tx->heidth);
-	new->tx->start_img = mlx_get_data_addr(new->tx->img_ptr,
-			&new->tx->bpp, &new->tx->size_line, &new->tx->endian);
-	(new->tx + 1)->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
-			"textures/WALL1.xpm", &(new->tx + 1)->width,
-			&((new->tx + 1)->heidth));
-	(new->tx + 1)->start_img = mlx_get_data_addr((new->tx + 1)->img_ptr,
-			&(new->tx + 1)->bpp, &(new->tx + 1)->size_line,
-			&((new->tx + 1)->endian));
-	(new->tx + 2)->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
-			"textures/hand.xpm", &((new->tx + 2)->width),
-			&((new->tx + 2)->heidth));
-	(new->tx + 2)->start_img = mlx_get_data_addr((new->tx + 2)->img_ptr,
-			&((new->tx + 2)->bpp), &((new->tx + 2)->size_line),
-			&((new->tx + 2)->endian));
-	(new->tx + 3)->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
-			"textures/WALL2.xpm", &((new->tx + 3)->width),
-			&((new->tx + 3)->heidth));
-	(new->tx + 3)->start_img = mlx_get_data_addr((new->tx + 3)->img_ptr,
-			&((new->tx + 3)->bpp), &((new->tx + 3)->size_line),
-			&((new->tx + 3)->endian));
-	(new->tx + 4)->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
-			"textures/WALL3.xpm", &((new->tx + 4)->width),
-			&((new->tx + 4)->heidth));
-	(new->tx + 4)->start_img = mlx_get_data_addr((new->tx + 4)->img_ptr,
-			&((new->tx + 4)->bpp), &((new->tx + 4)->size_line),
-			&((new->tx + 4)->endian));
-	(new->tx + 5)->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
-			"textures/menu.xpm", &((new->tx + 5)->width),
-			&((new->tx + 5)->heidth));
-	(new->tx + 5)->start_img = mlx_get_data_addr((new->tx + 5)->img_ptr,
-			&((new->tx + 5)->bpp), &((new->tx + 5)->size_line),
-			&((new->tx + 5)->endian));
+	change_texture(new, 0, "textures/WALL0.xpm");
+	change_texture(new, 1, "textures/WALL1.xpm");
+	change_texture(new, 2, "textures/hand.xpm");
+	change_texture(new, 3, "textures/WALL2.xpm");
+	change_texture(new, 4, "textures/WALL3.xpm");
+	change_texture(new, 5, "textures/menu.xpm");
 }
 
 static void	init_mlx(t_wolf *new)
