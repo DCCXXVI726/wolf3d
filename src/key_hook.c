@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 19:00:12 by bfalmer-          #+#    #+#             */
-/*   Updated: 2019/03/05 15:11:02 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/11 20:11:08 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		key_press(int key, t_wolf *wolf)
 	if (key == 48 && wolf->menu == 1)
 		wolf->menu = 0;
 	else if (key == 48 && wolf->menu == 0)
-		wolf->menu = 1;                   
+		wolf->menu = 1;
 	if ((key == 49 || key == 125 || key == 126) && wolf->menu == 1)
 		key_menu(key, wolf);
 	if (key == 257)
