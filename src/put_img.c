@@ -6,116 +6,79 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 13:58:41 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/11 17:38:47 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/11 19:39:43 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-int			get_p2(t_wolf *wolf, double *angle, double *p, double *pos)
+int			get_p2(t_wolf *wolf, t_orientation *orientation, double *p, double *pos)
 {
-	int		orientation;
-	double	x2;
-	double	y2;
 	double	p1;
 	double	pos1;
-	double	x_step;
-	double	y_step;
 
-	orientation = 0;
-	if (sin(*angle) > 0)
+	orientation->orientation = 0;
+	if (sin(orientation->angle) > 0)
 	{
-		y2 = (int)wolf->player->y;
-		y_step = 1;
-		x2 = wolf->player->x + (wolf->player->y - (int)(wolf->player->y)) / tan(*angle);
+		orientation->y = (int)wolf->player->y;
+		orientation->y_step = 1;
+		orientation->x = wolf->player->x + (wolf->player->y - (int)(wolf->player->y)) / tan(orientation->angle);
 	}
 	else
 	{
-		y2 = 1 + (int)wolf->player->y;
-		y_step = -1;
-		x2 = wolf->player->x - (1 - wolf->player->y + (int)(wolf->player->y)) / tan(*angle);
+		orientation->y = 1 + (int)wolf->player->y;
+		orientation->y_step = -1;
+		orientation->x = wolf->player->x - (1 - wolf->player->y + (int)(wolf->player->y)) / tan(orientation->angle);
 	}
-	x_step = y_step / tan(*angle);
-	while (x2 >= 0 && x2 < wolf->width && y2 >= 0 && y2 < wolf->heigth && orientation == 0)
-	{
-		if (*(wolf->map + (int)(x2) + ((int)y2 - 1) * wolf->width) != '0')
-		{
-			orientation = 2;
-			break ;
-		}
-		if (*(wolf->map + (int)(x2) + ((int)y2) * wolf->width) != '0')
-		{
-			orientation = 4;
-			break ;
-		}
-		y2 = y2 - y_step;
-		x2 = x2 + x_step;
-	}
+	orientation->x_step = orientation->y_step / tan(orientation->angle);
+	find_orientation_p2(orientation, wolf);
 	p1 = 0;
-	if (orientation != 0)
+	if (orientation->orientation!= 0)
 	{
-		p1 = (x2 - wolf->player->x) * cos(wolf->player->angle) + (wolf->player->y - y2) * sin(wolf->player->angle);
-		pos1 = x2 - (int)x2;
+		p1 = (orientation->x - wolf->player->x) * cos(wolf->player->angle) +
+			(wolf->player->y - orientation->y) * sin(wolf->player->angle);
+		pos1 = orientation->x - (int)orientation->x;
 	}
 	if (*p == 0 || (p1 != 0 && p1 < *p))
 	{
 		*p = p1;
 		*pos = pos1;
-		*angle = orientation;
+		orientation->angle = orientation->orientation;
 		return (1);
 	}
 	else
 		return (0);
 }
 
-static double	get_p(t_wolf *wolf, int i, int *orientation, double *pos)
+static void	get_p(t_wolf *wolf, t_main_window *window)
 {
-	double	x1;
-	double	y1;
-	double	angle;
-	double	p;
-	double	x_step;
-	double	y_step;
+	t_orientation *orientation;
 
-	angle = wolf->player->angle + wolf->fov[(int)(wolf->fov[0])] * (1.0 / 2 - ((double)i) / wolf->iteration);
-	if (cos(angle) > 0)
+	orientation = (t_orientation*)malloc(sizeof(t_orientation));
+	orientation->angle = wolf->player->angle + wolf->fov[(int)(wolf->fov[0])] * (1.0 / 2 - ((double)(window->i)) / wolf->iteration);
+	if (cos(orientation->angle) > 0)
 	{
-		x1 = 1 + (int)(wolf->player->x);
-		x_step = 1;
-		y1 = wolf->player->y - (1 + (int)(wolf->player->x) - wolf->player->x) * tan(angle);
+		orientation->x = 1 + (int)(wolf->player->x);
+		orientation->x_step = 1;
+		orientation->y = wolf->player->y - (1 + (int)(wolf->player->x) - wolf->player->x) * tan(orientation->angle);
 	}
 	else
 	{
-		x1 = (int)wolf->player->x;
-		x_step = -1;
-		y1 = wolf->player->y + (wolf->player->x - (int)(wolf->player->x)) * tan(angle);
+		orientation->x = (int)wolf->player->x;
+		orientation->x_step = -1;
+		orientation->y = wolf->player->y + (wolf->player->x - (int)(wolf->player->x)) * tan(orientation->angle);
 	}
-	y_step = x_step * tan(angle);
-	while (x1 >= 0 && x1 < wolf->width && y1 >= 0 && y1 < wolf->heigth && *orientation == 0)
+	orientation->y_step = orientation->x_step * tan(orientation->angle);
+	find_orientation_p(orientation, wolf);
+	window->p = 0;
+	if (wolf->orientation != 0)
 	{
-		if (*(wolf->map + ((int)(x1)) + (((int)y1)) * wolf->width) != '0')
-		{
-			*orientation = 3;
-			break;
-		}
-		if (*(wolf->map + ((int)(x1 - 1)) + (((int)y1)) * wolf->width) != '0')
-		{
-			*orientation = 1;
-			break;
-		}
-		y1 = y1 - y_step;
-		x1 = x1 + x_step;
+		window->p = (orientation->x - wolf->player->x) * cos(wolf->player->angle) +
+			(wolf->player->y - orientation->y) * sin(wolf->player->angle);
+		window->pos = orientation->y - (int)orientation->y;
 	}
-	p = 0;
-	if (*orientation != 0)
-	{
-		p = (x1 - wolf->player->x) * cos(wolf->player->angle) +
-		(wolf->player->y - y1) * sin(wolf->player->angle);
-		*pos = y1 - (int)y1;
-	}
-	if (get_p2(wolf, &angle, &p, pos) == 1)
-		*orientation = (int)angle;
-	return (p);
+	if (get_p2(wolf, orientation, &window->p, &window->pos) == 1)
+		wolf->orientation = (int)orientation->angle;
 }
 
 static void		draw_hands(t_wolf *wolf)
@@ -147,36 +110,12 @@ static void		draw_hands(t_wolf *wolf)
 	}
 }
 
-static void	define_wall(t_wolf *wolf)
-{
-	if (wolf->orientation == 1)
-		wolf->curr_tx = wolf->tx;
-	else if (wolf->orientation == 2)
-		wolf->curr_tx = wolf->tx + 1;
-	else if (wolf->orientation == 3)
-		wolf->curr_tx = wolf->tx + 3;
-	else
-		wolf->curr_tx = wolf->tx + 4;
-}
-
-static void	define_color(t_wolf *wolf, t_main_window *window)
-{
-	if (window->y < wolf->line_horizon - window->p / 2)
-		window->color = 0xFFFFFF;
-	else if (window->y < wolf->line_horizon + window->p / 2)
-		window->color = ((int*)wolf->curr_tx->start_img)[(int)window->pos +
-			(int)((window->y - wolf->line_horizon + window->p / 2) /
-				window->p * wolf->curr_tx->heidth) * wolf->curr_tx->width];
-	else
-		window->color = 0x666666;
-}
-
 static void	main_window(t_wolf *wolf, t_main_window *window)
 {
 	while (++(window->i) < wolf->iteration)
 	{
 		wolf->orientation = 0;
-		window->p = get_p(wolf, window->i, &wolf->orientation, &window->pos);
+		get_p(wolf, window);
 		if (window->p != 0)
 			window->p = fabs(1500 / window->p);
 		window->y = -1;

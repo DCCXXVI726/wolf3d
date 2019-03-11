@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/11 17:18:36 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/11 19:34:26 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,17 @@ typedef struct		s_main_window
 	int				color;
 	double			pos;	
 }					t_main_window;
+
+typedef struct 		s_orientation
+{
+	double			x;
+	double			y;
+	double			angle;
+	double			x_step;
+	double			y_step;
+	int				orientation;
+}					t_orientation;
+
 
 typedef	struct		s_wolf
 {
@@ -97,4 +108,8 @@ int					mouse_move(int x, int y, t_wolf *wolf);
 void    			menu (t_wolf *wolf);
 int					add_text(t_wolf *wolf);
 int					put_fps(t_wolf *wolf);
+void				define_wall(t_wolf *wolf);
+void				define_color(t_wolf *wolf, t_main_window *window);
+void 				find_orientation_p(t_orientation *orientation, t_wolf *wolf);
+void 				find_orientation_p2(t_orientation *orientation, t_wolf *wolf);
 #endif
