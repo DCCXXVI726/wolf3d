@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/09 18:13:14 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/11 15:53:54 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,15 @@ static void	read_map(t_wolf *new, char *name)
 	new->map = tmp;
 }
 
-void		change_texture(t_wolf *new, int index, char *name)
+static void	change_texture(t_wolf *new, int index, char *name)
 {
 	(new->tx + index)->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
-		name,&((new->tx + index)->width), &((new->tx + index)->heidth));
+		name, &((new->tx + index)->width), &((new->tx + index)->heidth));
 	(new->tx + index)->start_img = mlx_get_data_addr((new->tx + index)->img_ptr,
 		&((new->tx + index)->bpp),
 			&((new->tx + index)->size_line), &((new->tx + index)->endian));
 }
+
 static void	add_textures(t_wolf *new)
 {
 	if ((new->tx = (t_texture*)malloc(sizeof(t_texture) * 6)) == 0)
@@ -57,31 +58,11 @@ static void	add_textures(t_wolf *new)
 	change_texture(new, 2, "textures/hand.xpm");
 	change_texture(new, 3, "textures/WALL2.xpm");
 	change_texture(new, 4, "textures/WALL3.xpm");
-	change_texture(new, 5, "textures/menu.xpm");
+	change_texture(new, 5, "textures/menu2.xpm");
 }
 
-static void	init_mlx(t_wolf *new)
+static void	feel_struct(t_wolf *new)
 {
-	new->mlx_ptr = mlx_init();
-	new->win_ptr = mlx_new_window(new->mlx_ptr, new->win_width, new->win_heidth,
-			"Wolf3d");
-	new->img_ptr = mlx_new_image(new->mlx_ptr, new->win_width, new->win_heidth);
-	new->start_img = mlx_get_data_addr(new->img_ptr, &(new->bpp),
-			&(new->size_line), &(new->endian));
-	add_textures(new);
-}
-
-t_wolf		*create_struct(void)
-{
-	t_wolf	*new;
-	if ((new = (t_wolf*)malloc(sizeof(t_wolf))) == 0)
-		check_error_n_exit(1, "Didn't create wold sctruct");
-	if ((new->player = (t_player*)malloc(sizeof(t_player))) == 0)
-		check_error_n_exit(1, "Didn't create player");
-	if ((new->fov = (double*)malloc(sizeof(double) * 3)) == 0)
-		check_error_n_exit(1, "Didn't create fov_array");
-	if ((new->mouse_speed = (int*)malloc(sizeof(int) * 3)) == 0)
-		check_error_n_exit(1, "Didn't create mouse_speed");
 	new->fov[0] = 1;
 	new->fov[1] = 3.14 / 3;
 	new->fov[2] = 3.14 / 4;
@@ -93,7 +74,7 @@ t_wolf		*create_struct(void)
 	new->player->x = 1.5;
 	new->player->y = 1.5;
 	new->win_width = 1500;
-	new->win_heidth = 1000;
+	new->win_heidth = 800;
 	new->player->angle = 0;
 	new->move_forward = 0;
 	new->move_back = 0;
@@ -102,8 +83,29 @@ t_wolf		*create_struct(void)
 	new->step = 0.01;
 	new->step_ill = 0;
 	new->step_count = 0;
+}
+
+t_wolf		*create_struct(void)
+{
+	t_wolf	*new;
+
+	if ((new = (t_wolf*)malloc(sizeof(t_wolf))) == 0)
+		check_error_n_exit(1, "Didn't create wold sctruct");
+	if ((new->player = (t_player*)malloc(sizeof(t_player))) == 0)
+		check_error_n_exit(1, "Didn't create player");
+	if ((new->fov = (double*)malloc(sizeof(double) * 3)) == 0)
+		check_error_n_exit(1, "Didn't create fov_array");
+	if ((new->mouse_speed = (int*)malloc(sizeof(int) * 3)) == 0)
+		check_error_n_exit(1, "Didn't create mouse_speed");
 	gettimeofday(&new->time, NULL);
-	init_mlx(new);
+	feel_struct(new);
+	new->mlx_ptr = mlx_init();
+	new->win_ptr = mlx_new_window(new->mlx_ptr, new->win_width, new->win_heidth,
+			"Wolf3d");
+	new->img_ptr = mlx_new_image(new->mlx_ptr, new->win_width, new->win_heidth);
+	new->start_img = mlx_get_data_addr(new->img_ptr, &(new->bpp),
+			&(new->size_line), &(new->endian));
+	add_textures(new);
 	read_map(new, "map");
 	new->iteration = 400;
 	new->menu = 0;
