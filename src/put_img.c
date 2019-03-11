@@ -196,7 +196,7 @@ int	put_img(t_wolf *wolf)
 					if (((int*)(wolf->tx + 2)->start_img)[new_y * (wolf->tx + 2)->width + new_x] != 0xFFFFFF)
 					{
 						color = ((int*)(wolf->tx + 2)->start_img)[new_y * (wolf->tx + 2)->width + new_x] ;
-						((int*)wolf->start_img)[(int)(((y1 + wolf->win_heidth / 2) * wolf->win_width) + (x1 + wolf->win_width / 3))] = color;
+						((int*)wolf->start_img)[(int)(((y1 + wolf->win_heidth / 2) * wolf->win_width) + (x1 + wolf->win_width / 100 * 45))] = color;
 					}
 					x1++;
 				}
