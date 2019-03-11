@@ -42,14 +42,14 @@ static void	read_map(t_wolf *new, char *name)
 
 static void	add_textures(t_wolf *new)
 {
-	if ((new->tx = (t_texture*)malloc(sizeof(t_texture) * 5)) == 0)
+	if ((new->tx = (t_texture*)malloc(sizeof(t_texture) * 6)) == 0)
 		check_error_n_exit(1, "Didn't create texture struct");
 	new->tx->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
-			"textures/WALL1.xpm", &new->tx->width, &new->tx->heidth);
+			"textures/WALL0.xpm", &new->tx->width, &new->tx->heidth);
 	new->tx->start_img = mlx_get_data_addr(new->tx->img_ptr,
 			&new->tx->bpp, &new->tx->size_line, &new->tx->endian);
 	(new->tx + 1)->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
-			"textures/WALL0.xpm", &(new->tx + 1)->width,
+			"textures/WALL1.xpm", &(new->tx + 1)->width,
 			&((new->tx + 1)->heidth));
 	(new->tx + 1)->start_img = mlx_get_data_addr((new->tx + 1)->img_ptr,
 			&(new->tx + 1)->bpp, &(new->tx + 1)->size_line,
@@ -72,6 +72,12 @@ static void	add_textures(t_wolf *new)
 	(new->tx + 4)->start_img = mlx_get_data_addr((new->tx + 4)->img_ptr,
 			&((new->tx + 4)->bpp), &((new->tx + 4)->size_line),
 			&((new->tx + 4)->endian));
+	(new->tx + 5)->img_ptr = mlx_xpm_file_to_image(new->mlx_ptr,
+			"textures/menu.xpm", &((new->tx + 5)->width),
+			&((new->tx + 5)->heidth));
+	(new->tx + 5)->start_img = mlx_get_data_addr((new->tx + 5)->img_ptr,
+			&((new->tx + 5)->bpp), &((new->tx + 5)->size_line),
+			&((new->tx + 5)->endian));
 }
 
 static void	init_mlx(t_wolf *new)
