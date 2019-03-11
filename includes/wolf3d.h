@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/09 18:05:35 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/11 16:47:42 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <time.h>
 # include <sys/time.h>
 # define ANGLE 3.14 / 200
+# define TIME 1000000
 
 typedef struct		s_player
 {
@@ -84,4 +85,5 @@ void				put_player(t_wolf *wolf);
 int					mouse_move(int x, int y, t_wolf *wolf);
 void    			menu (t_wolf *wolf);
 int					add_text(t_wolf *wolf);
+int					put_fps(t_wolf *wolf);
 #endif

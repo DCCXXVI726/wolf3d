@@ -3,38 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   put_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 13:58:41 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/09 18:12:54 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/11 16:57:02 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-static void	put_fps(t_wolf *wolf)
+int			get_p2(t_wolf *wolf, double *angle, double *p, double *pos)
 {
-	wolf->old_time = wolf->time;
-	gettimeofday(&wolf->time, NULL);
-	if (wolf->time.tv_sec > wolf->old_time.tv_sec)
-		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, 0, 0, 0xFF0000,
-				ft_itoa(((int)(1000000 / (wolf->time.tv_usec + 1000000 -
-								wolf->old_time.tv_usec)))));
-	else
-		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, 0, 0, 0xFF0000,
-				ft_itoa(((int)(1000000 / (wolf->time.tv_usec -
-								wolf->old_time.tv_usec)))));
-}
-
-int	get_p2(t_wolf *wolf, double *angle, double *p, double *pos)
-{
-	int orientation;
-	double x2;
-	double y2;
-	double p1;
-	double pos1;
-	double x_step;
-	double y_step;
+	int		orientation;
+	double	x2;
+	double	y2;
+	double	p1;
+	double	pos1;
+	double	x_step;
+	double	y_step;
 
 	orientation = 0;
 	if (sin(*angle) > 0)
@@ -54,7 +40,6 @@ int	get_p2(t_wolf *wolf, double *angle, double *p, double *pos)
 	{
 		if (*(wolf->map + (int)(x2) + ((int)y2 - 1) * wolf->width) != '0')
 		{
-
 			orientation = 2;
 			break ;
 		}
@@ -81,20 +66,18 @@ int	get_p2(t_wolf *wolf, double *angle, double *p, double *pos)
 	}
 	else
 		return (0);
-		
-
 }
 
-double	get_p(t_wolf *wolf, int i, int *orientation, double *pos)
+static double	get_p(t_wolf *wolf, int i, int *orientation, double *pos)
 {
 	double	x1;
 	double	y1;
 	double	angle;
-	double 	p;
+	double	p;
 	double	x_step;
 	double	y_step;
 
-	angle = wolf->player->angle + wolf->fov[(int)(wolf->fov[0])] * (1.0/ 2 - ((double)i) / wolf->iteration);
+	angle = wolf->player->angle + wolf->fov[(int)(wolf->fov[0])] * (1.0 / 2 - ((double)i) / wolf->iteration);
 	if (cos(angle) > 0)
 	{
 		x1 = 1 + (int)(wolf->player->x);
@@ -134,15 +117,46 @@ double	get_p(t_wolf *wolf, int i, int *orientation, double *pos)
 	return (p);
 }
 
-int	put_img(t_wolf *wolf)
+static void		draw_hands(t_wolf *wolf)
 {
-	int	i;
-	double x1;
-	double y1;
-	double p;
-	int color;
-	int orientation;
-	double pos;
+	double	x;
+	double	y;
+	int		new_x;
+	int		new_y;
+	int		color;
+
+	y = -1;
+	while (y < wolf->win_heidth / 2)
+	{
+		while (++y < wolf->win_heidth / 2)
+		{
+			new_y = y / (wolf->win_heidth / 2) * (wolf->tx + 2)->heidth;
+			x = -1;
+			while (++x < wolf->win_width / 3)
+			{
+				new_x = x / (wolf->win_width / 3) * (wolf->tx + 2)->width;
+				if (((int*)(wolf->tx + 2)->start_img)[new_y *
+					(wolf->tx + 2)->width + new_x] != 0xFFFFFF)
+				{
+					color = ((int*)(wolf->tx + 2)->start_img)[new_y *
+						(wolf->tx + 2)->width + new_x];
+					((int*)wolf->start_img)[(int)(((y + wolf->win_heidth / 2) *
+						wolf->win_width) + (x + wolf->win_width / 100 * 45))] = color;
+				}
+			}	
+		}
+	}
+}
+
+int			put_img(t_wolf *wolf)
+{
+	int		i;
+	double	x1;
+	double	y1;
+	double	p;
+	int		color;
+	int		orientation;
+	double	pos;
 
 	if (wolf->menu == 0)
 	{
@@ -167,56 +181,30 @@ int	put_img(t_wolf *wolf)
 			while (y1 < wolf->win_heidth)
 			{
 				if (y1 < wolf->line_horizon - p / 2)
-					color = 0xFFFFFF;	
+					color = 0xFFFFFF;
 				else if (y1 < wolf->line_horizon + p / 2)
 					color = ((int*)wolf->curr_tx->start_img)[(int)pos + (int)((y1 - wolf->line_horizon + p / 2) / p * wolf->curr_tx->heidth) * wolf->curr_tx->width];
 				else
 					color = 0x666666;
 				x1 = (double)i * wolf->win_width / wolf->iteration;
-				while (x1 < (i + 1) * (double) wolf->win_width / wolf->iteration && x1 < wolf->win_width)
+				while (x1 < (i + 1) * (double)wolf->win_width / wolf->iteration &&
+					x1 < wolf->win_width)
 				{
-					((int*)wolf->start_img)[((int)y1) * wolf->win_width + ((int)x1)] = color;
+					((int*)wolf->start_img)[(int)(y1 * wolf->win_width +
+						x1)] = color;
 					x1++;
 				}
 				y1++;
 			}
 			i++;
 		}
-		y1 = 0;
-		x1 = 0;
-		while (y1 < wolf->win_heidth / 2)
-		{
-			while (y1 < wolf->win_heidth / 2)
-			{
-				
-				int new_y = y1 / (wolf->win_heidth / 2) * (wolf->tx + 2)->heidth;
-				while (x1 < wolf->win_width / 3)
-				{
-					int new_x = x1 / (wolf->win_width / 3) * (wolf->tx + 2)->width ;
-					if (((int*)(wolf->tx + 2)->start_img)[new_y * (wolf->tx + 2)->width + new_x] != 0xFFFFFF)
-					{
-						color = ((int*)(wolf->tx + 2)->start_img)[new_y * (wolf->tx + 2)->width + new_x] ;
-						((int*)wolf->start_img)[(int)(((y1 + wolf->win_heidth / 2) * wolf->win_width) + (x1 + wolf->win_width / 100 * 45))] = color;
-					}
-					x1++;
-				}
-				x1 = 0;
-				y1++;
-			}
-		}
+		draw_hands(wolf);
 	}
 	else
 		menu(wolf);
 	wolf->old_time = wolf->time;
-	gettimeofday(&wolf->time, NULL);
 	mlx_put_image_to_window(wolf->mlx_ptr, wolf->win_ptr, wolf->img_ptr, 0, 0);
 	add_text(wolf);
-	if (wolf->time.tv_sec > wolf->old_time.tv_sec)
-		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, 0, 0, 0xFF0000, ft_itoa(((int)(1000000 / (wolf->time.tv_usec + 1000000 - wolf->old_time.tv_usec)))));
-	else
-		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, 0, 0, 0xFF0000, ft_itoa(((int)(1000000 / (wolf->time.tv_usec - wolf->old_time.tv_usec)))));
-			return (0);
-	mlx_put_image_to_window(wolf->mlx_ptr, wolf->win_ptr, wolf->img_ptr, 0, 0);
 	put_fps(wolf);
 	return (0);
 }
