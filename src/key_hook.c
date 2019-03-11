@@ -35,14 +35,14 @@ int		player_move(int key, t_wolf *wolf, char k)
 
 int		key_menu(int key, t_wolf *wolf)
 {
-	if (wolf->menu_string == 1)
+	if (wolf->menu_string == 1 && key == 49)
 	{
 		if (wolf->fov[0] == 3)
 			wolf->fov[0] = 1;
 		else
 			wolf->fov[0]++;
 	}
-	if (wolf->menu_string == 2)
+	if (wolf->menu_string == 2 && key == 49)
 	{
 		if (wolf->mouse_speed[0] == 3)
 			wolf->mouse_speed[0] = 1;
@@ -73,8 +73,6 @@ int		key_press(int key, t_wolf *wolf)
 		key_menu(key, wolf);
 	if (key == 257)
 		wolf->step = 0.03;
-	if (key == 256)
-		system("killall afplay sounds/main.mp3");
 	mlx_clear_window(wolf->mlx_ptr, wolf->win_ptr);
 	put_img(wolf);
 	return (0);
