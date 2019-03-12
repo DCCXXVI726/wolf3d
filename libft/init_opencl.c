@@ -6,13 +6,13 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 16:10:21 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/15 17:07:25 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/12 14:38:19 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void        load_kernel2(char **tmp, char **old_tmp, int fd)
+static void			load_kernel2(char **tmp, char **old_tmp, int fd)
 {
 	if (ft_strlen(*tmp) != 0)
 	{
@@ -25,13 +25,13 @@ static void        load_kernel2(char **tmp, char **old_tmp, int fd)
 	close(fd);
 }
 
-static char        *load_kernel(char *name)
+static char			*load_kernel(char *name)
 {
-	int        fd;
-	char    *line;
-	char    *tmp;
-	char    *old_tmp;
-	int        gnl;
+	int		fd;
+	char	*line;
+	char	*tmp;
+	char	*old_tmp;
+	int		gnl;
 
 	tmp = ft_strnew(0);
 	if ((fd = open(name, O_RDONLY)) < 0)
@@ -52,7 +52,7 @@ static char        *load_kernel(char *name)
 	return (tmp);
 }
 
-static void        init_opencl2(t_opencl *ft_opencl, char *name_func)
+static void			init_opencl2(t_opencl *ft_opencl, char *name_func)
 {
 	ft_opencl->program = clCreateProgramWithSource(ft_opencl->context,
 			1, (const char **)&(ft_opencl->src_kernel_str),
@@ -60,7 +60,8 @@ static void        init_opencl2(t_opencl *ft_opencl, char *name_func)
 	check_error_n_exit(ft_opencl->error, "CreateProgramWithSource problem");
 	ft_opencl->error = clBuildProgram(ft_opencl->program, 0, 0, 0, 0, 0);
 	check_error_n_exit(ft_opencl->error, "BuildProgram problem");
-	ft_opencl->kernel = clCreateKernel(ft_opencl->program, name_func, &(ft_opencl->error));
+	ft_opencl->kernel = clCreateKernel(ft_opencl->program,
+			name_func, &(ft_opencl->error));
 	check_error_n_exit(ft_opencl->error, "CreateKernel problem");
 }
 
@@ -82,7 +83,7 @@ static t_opencl		*create_struct(void)
 	return (new);
 }
 
-t_opencl		*init_opencl(char *name_file, char *name_func)
+t_opencl			*init_opencl(char *name_file, char *name_func)
 {
 	t_opencl	*ft_opencl;
 
@@ -90,13 +91,14 @@ t_opencl		*init_opencl(char *name_file, char *name_func)
 		check_error_n_exit(1, "Didn't create struct for OpenCL");
 	ft_opencl->src_kernel_str = load_kernel(name_file);
 	ft_opencl->src_kernel_size = ft_strlen(ft_opencl->src_kernel_str);
-	ft_opencl->error = clGetDeviceIDs(0, CL_DEVICE_TYPE_GPU, 1, &(ft_opencl->device_id), 0);
+	ft_opencl->error = clGetDeviceIDs(0, CL_DEVICE_TYPE_GPU,
+			1, &(ft_opencl->device_id), 0);
 	check_error_n_exit(ft_opencl->error, "GetDeviceIDS problem");
 	ft_opencl->context = clCreateContext(0, 1, &(ft_opencl->device_id), 0, 0,
 			&(ft_opencl->error));
 	check_error_n_exit(ft_opencl->error, "CreateContext problem");
-	ft_opencl->command_queue = clCreateCommandQueue(ft_opencl->context, ft_opencl->device_id,
-			0, &(ft_opencl->error));
+	ft_opencl->command_queue = clCreateCommandQueue(ft_opencl->context,
+			ft_opencl->device_id, 0, &(ft_opencl->error));
 	check_error_n_exit(ft_opencl->error, "CreateCommandQueue problem");
 	init_opencl2(ft_opencl, name_func);
 	return (ft_opencl);

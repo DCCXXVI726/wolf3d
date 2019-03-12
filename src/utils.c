@@ -6,13 +6,13 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 17:41:41 by bfalmer-          #+#    #+#             */
-/*   Updated: 2019/03/11 19:37:08 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/12 15:07:31 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-void	define_wall(t_wolf *wolf)
+void		define_wall(t_wolf *wolf)
 {
 	if (wolf->orientation == 1)
 		wolf->curr_tx = wolf->tx;
@@ -24,7 +24,7 @@ void	define_wall(t_wolf *wolf)
 		wolf->curr_tx = wolf->tx + 4;
 }
 
-void	define_color(t_wolf *wolf, t_main_window *window)
+void		define_color(t_wolf *wolf, t_main_window *window)
 {
 	if (window->y < wolf->line_horizon - window->p / 2)
 		window->color = 0xFFFFFF;
@@ -36,7 +36,7 @@ void	define_color(t_wolf *wolf, t_main_window *window)
 		window->color = 0x666666;
 }
 
-void	find_orientation_p(t_orientation *orientation, t_wolf *wolf)
+void		find_orientation_p(t_orientation *orientation, t_wolf *wolf)
 {
 	while (orientation->x >= 0 && orientation->x < wolf->width &&
 		orientation->y >= 0 && orientation->y < wolf->heigth &&

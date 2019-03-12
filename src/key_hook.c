@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 19:00:12 by bfalmer-          #+#    #+#             */
-/*   Updated: 2019/03/11 20:11:08 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/12 15:01:06 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		key_press(int key, t_wolf *wolf)
 	if ((key == 49 || key == 125 || key == 126) && wolf->menu == 1)
 		key_menu(key, wolf);
 	if (key == 257)
-		wolf->step = 0.03;
+		wolf->step = 0.06;
 	mlx_clear_window(wolf->mlx_ptr, wolf->win_ptr);
 	put_img(wolf);
 	return (0);
@@ -83,7 +83,7 @@ int		key_release(int key, t_wolf *wolf)
 	if (key == 13 || key == 1 || key == 0 || key == 2)
 		player_move(key, wolf, 0);
 	if (key == 257)
-		wolf->step = 0.01;
+		wolf->step = 0.03;
 	mlx_clear_window(wolf->mlx_ptr, wolf->win_ptr);
 	put_img(wolf);
 	return (0);

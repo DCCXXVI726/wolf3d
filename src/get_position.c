@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 19:53:18 by bfalmer-          #+#    #+#             */
-/*   Updated: 2019/03/11 20:10:07 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/12 15:08:27 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,5 @@ void		get_p(t_wolf *wolf, t_main_window *window)
 	}
 	if (get_p2(wolf, orientation, &window->p, &window->pos) == 1)
 		wolf->orientation = (int)orientation->angle;
+	free(orientation);
 }

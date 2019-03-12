@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/11 15:53:54 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/12 14:59:04 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	feel_struct(t_wolf *new)
 	new->move_back = 0;
 	new->move_right = 0;
 	new->move_left = 0;
-	new->step = 0.01;
+	new->step = 0.03;
 	new->step_ill = 0;
 	new->step_count = 0;
 }

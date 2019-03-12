@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 13:58:41 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/11 20:18:14 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/12 15:02:49 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int			put_img(t_wolf *wolf)
 
 	if ((window = (t_main_window*)malloc(sizeof(t_main_window))) == 0)
 		check_error_n_exit(1, "Didn't create window sctruct");
-	window->i = 0;
+	window->i = -1;
 	if (wolf->menu == 0)
 	{
 		moving(wolf);
@@ -101,5 +101,6 @@ int			put_img(t_wolf *wolf)
 	mlx_put_image_to_window(wolf->mlx_ptr, wolf->win_ptr, wolf->img_ptr, 0, 0);
 	add_text(wolf);
 	put_fps(wolf);
+	free(window);
 	return (0);
 }

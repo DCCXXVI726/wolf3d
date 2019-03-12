@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 15:33:14 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/09 16:14:15 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/12 14:58:23 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	step(t_wolf *wolf)
 	if (wolf->move_back == 1 || wolf->move_forward == 1
 			|| wolf->move_left == 1 || wolf->move_right == 1)
 	{
-		if (wolf->step > 0.01)
+		if (wolf->step > 0.03)
 			wolf->step_count += 2;
 		else
 			wolf->step_count += 1;
