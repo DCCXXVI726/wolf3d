@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 15:33:14 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/12 14:58:23 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/12 16:51:24 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ static void	moving_left_right(t_wolf *wolf, double x_change, double y_change)
 			wolf->player->x -= y_change;
 			wolf->player->y -= x_change;
 		}
+	if (wolf->turn_left == 1)
+		wolf->player->angle += ANGLE * 3;
+	if (wolf->turn_right == 1)
+		wolf->player->angle -= ANGLE * 3;
 }
 
 void		moving(t_wolf *wolf)

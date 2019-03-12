@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 19:00:12 by bfalmer-          #+#    #+#             */
-/*   Updated: 2019/03/12 15:01:06 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/12 16:49:37 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,18 @@
 
 int		player_move(int key, t_wolf *wolf, char k)
 {
-	if (key == 13 && k == 1)
-		wolf->move_forward = 1;
-	else if (key == 13 && k == 0)
-		wolf->move_forward = 0;
-	if (key == 1 && k == 1)
-		wolf->move_back = 1;
-	else if (key == 1 && k == 0)
-		wolf->move_back = 0;
-	if (key == 0 && k == 1)
-		wolf->move_left = 1;
-	else if (key == 0 && k == 0)
-		wolf->move_left = 0;
-	if (key == 2 && k == 1)
-		wolf->move_right = 1;
-	else if (key == 2 && k == 0)
-		wolf->move_right = 0;
+	if (key == 13)
+		wolf->move_forward = k;
+	if (key == 1)
+		wolf->move_back = k;
+	if (key == 0)
+		wolf->move_left = k;
+	if (key == 2)
+		wolf->move_right = k;
+	else if (key == 12)
+		wolf->turn_left = k;
+	else if (key == 14)
+		wolf->turn_right = k;
 	return (0);
 }
 
@@ -63,7 +59,7 @@ int		key_press(int key, t_wolf *wolf)
 		system("killall afplay");
 		exit(1);
 	}
-	if (key == 13 || key == 1 || key == 0 || key == 2)
+	if (key == 13 || key == 1 || key == 0 || key == 2 || key == 12 || key == 14)
 		player_move(key, wolf, 1);
 	if (key == 48 && wolf->menu == 1)
 		wolf->menu = 0;
@@ -80,7 +76,7 @@ int		key_press(int key, t_wolf *wolf)
 
 int		key_release(int key, t_wolf *wolf)
 {
-	if (key == 13 || key == 1 || key == 0 || key == 2)
+	if (key == 13 || key == 1 || key == 0 || key == 2 || key == 12 || key == 14)
 		player_move(key, wolf, 0);
 	if (key == 257)
 		wolf->step = 0.03;

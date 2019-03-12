@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/11 20:19:01 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/12 16:41:33 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ typedef	struct		s_wolf
 	char			move_back;
 	char			move_right;
 	char			move_left;
+	char			turn_left;
+	char			turn_right;
 	int				line_horizon;
 	double			step_ill;
 	t_texture		*tx;
