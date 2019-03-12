@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/12 16:11:35 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/12 16:52:45 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	feel_struct(t_wolf *new)
 	new->mouse_speed[1] = 10;
 	new->mouse_speed[2] = 15;
 	new->mouse_speed[3] = 5;
-	new->player->x = 1.5;
+	new->player->x = 3.5;
 	new->player->y = 1.5;
 	new->win_width = 1500;
 	new->win_heidth = 800;
