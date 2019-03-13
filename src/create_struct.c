@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/12 17:32:44 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:47:57 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	read_map(t_wolf *new, char *name)
 	int		fd;
 
 	tmp = ft_strnew(0);
-	if ((fd = open(name, O_RDONLY)) < 0)
+	if ((fd = open(name, O_RDONLY)) < 0 || (gnl = get_next_line(fd, &line)) == 0)
 		check_error_n_exit(1, "Didn't open file map");
 	while ((gnl = get_next_line(fd, &line)) != 0)
 	{

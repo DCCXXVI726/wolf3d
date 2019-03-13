@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 15:48:36 by bfalmer-          #+#    #+#             */
-/*   Updated: 2019/03/11 16:20:13 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:46:27 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static void	put_string(t_wolf *wolf, int x, int y, char *text)
 
 int			add_text(t_wolf *wolf)
 {
+	char	*buff;
+
 	if (wolf->menu == 1)
 	{
 		put_string(wolf, wolf->win_width / 12, wolf->win_heidth / 100 * 20,
@@ -70,17 +72,18 @@ int			add_text(t_wolf *wolf)
 		put_string(wolf, wolf->win_width / 12, wolf->win_heidth / 100 * 30,
 			"FOV");
 		put_string(wolf, wolf->win_width / 12 * 2, wolf->win_heidth / 100 * 30,
-			ft_itoa(wolf->fov[(int)(wolf->fov[0])] / 3.14 * 180));
+			buff = ft_itoa(wolf->fov[(int)(wolf->fov[0])] / 3.14 * 180));
 		put_string(wolf, wolf->win_width / 12, wolf->win_heidth / 100 * 42,
 			"Mouse speed");
 		put_string(wolf, wolf->win_width / 12 * 2, wolf->win_heidth / 100 * 42,
-			ft_itoa(wolf->mouse_speed[wolf->mouse_speed[0]]));
+			buff = ft_itoa(wolf->mouse_speed[wolf->mouse_speed[0]]));
 		put_string(wolf, wolf->win_width / 12, wolf->win_heidth / 100 * 55,
 			"- - -");
 		put_string(wolf, wolf->win_width / 12, wolf->win_heidth / 100 * 68,
 			"- - -");
 		put_string(wolf, wolf->win_width / 12, wolf->win_heidth / 100 * 78,
 			"(c.)");
+		free(buff);
 	}
 	return (0);
 }

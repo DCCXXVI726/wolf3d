@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 13:58:41 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/12 16:36:21 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/13 16:46:11 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 static int	put_fps(t_wolf *wolf)
 {
+	char *buff;
+
 	gettimeofday(&wolf->time, NULL);
 	if (wolf->time.tv_sec > wolf->old_time.tv_sec)
 		mlx_string_put(wolf->mlx_ptr,
-			wolf->win_ptr, 0, 0, 0xFF0000, ft_itoa(((int)(TIME /
+			wolf->win_ptr, 0, 0, 0xFF0000, buff = ft_itoa(((int)(TIME /
 				(wolf->time.tv_usec + TIME - wolf->old_time.tv_usec)))));
 	else
 		mlx_string_put(wolf->mlx_ptr, wolf->win_ptr, 0, 0,
-			0xFF0000, ft_itoa((int)(TIME / (wolf->time.tv_usec -
+			0xFF0000, buff = ft_itoa((int)(TIME / (wolf->time.tv_usec -
 				wolf->old_time.tv_usec))));
+	free(buff);
 	return (1);
 }
 
