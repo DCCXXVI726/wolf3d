@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:58:16 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/12 17:05:17 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:59:20 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ typedef	struct		s_wolf
 
 void				moving(t_wolf *wolf);
 int					put_img(t_wolf *wolf);
-t_wolf				*create_struct();
+t_wolf				*create_struct(char *map_name);
 void				hook(t_wolf *wolf);
 int					key_press(int key, t_wolf *wolf);
 int					key_release(int key, t_wolf *wolf);

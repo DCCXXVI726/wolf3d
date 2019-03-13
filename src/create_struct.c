@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/13 16:47:57 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/13 17:00:10 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	feel_struct(t_wolf *new)
 	new->mouse_x = -1;
 }
 
-t_wolf		*create_struct(void)
+t_wolf		*create_struct(char *map_name)
 {
 	t_wolf	*new;
 
@@ -107,7 +107,7 @@ t_wolf		*create_struct(void)
 	new->start_img = mlx_get_data_addr(new->img_ptr, &(new->bpp),
 			&(new->size_line), &(new->endian));
 	add_textures(new);
-	read_map(new, "map");
+	read_map(new, map_name);
 	new->iteration = 400;
 	new->menu = 0;
 	new->menu_string = 1;
