@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/*  ************************************************************************* */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   create_struct.c                                    :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:39:10 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/13 17:00:10 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/14 14:50:44 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,23 @@ static void	read_map(t_wolf *new, char *name)
 	int		fd;
 
 	tmp = ft_strnew(0);
-	if ((fd = open(name, O_RDONLY)) < 0 || (gnl = get_next_line(fd, &line)) == 0)
+	if ((fd = open(name, O_RDONLY)) < 0)
 		check_error_n_exit(1, "Didn't open file map");
 	while ((gnl = get_next_line(fd, &line)) != 0)
 	{
 		if (gnl == -1)
 			check_error_n_exit(1, "Didn't read file");
+		if (new->width != -1 && new->width != (int)ft_strlen(line))
+			check_error_n_exit(1, "strings in map aren't equal");
 		new->width = ft_strlen(line);
 		old_tmp = tmp;
 		tmp = ft_strjoin(tmp, line);
 		free(old_tmp);
 		free(line);
 	}
-	new->heigth = ft_strlen(tmp) / new->width;
 	if (ft_strlen(tmp) == 0)
-		ft_strdel(&tmp);
+		check_error_n_exit(1, "empty file");
+	new->heigth = ft_strlen(tmp) / new->width;
 	close(fd);
 	new->map = tmp;
 }
@@ -84,6 +86,7 @@ static void	feel_struct(t_wolf *new)
 	new->step_ill = 0;
 	new->step_count = 0;
 	new->mouse_x = -1;
+	new->width = -1;
 }
 
 t_wolf		*create_struct(char *map_name)

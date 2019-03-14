@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:37:27 by thorker           #+#    #+#             */
-/*   Updated: 2019/03/13 17:16:57 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/14 15:50:44 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static char	*check_parametrs(int ac, char *av[])
 {
 	char *map_name;
 	
-	if (ac > 2)
-		check_error_n_exit(1, "More then 1 parametrs");
+	if (ac != 2 || ac != 1)
+		check_error_n_exit(1, "Usage ./wolf3d FILE_MAP");
 	if (ac == 1)
-		map_name = "map";
+		map_name = ft_strdup("map");
 	else
 		map_name = av[0];
 	return (map_name);
