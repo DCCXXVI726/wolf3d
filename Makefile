@@ -6,7 +6,7 @@
 #    By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 17:25:57 by thorker           #+#    #+#              #
-#    Updated: 2019/03/11 20:18:29 by bfalmer-         ###   ########.fr        #
+#    Updated: 2019/03/14 14:36:38 by bfalmer-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = wolf3d
 FLAG = -Wall -Wextra -Werror -g
 SRC = create_struct.c hook.c put_img.c key_hook.c mouse_hook.c main.c move.c menu.c utils.c get_position.c
 INC = -I /usr/local/include -I libft/ -I ./includes
-LIB = -L /usr/local/lib -lmlx -L libft/ -lft
+LIB = -L /usr/local/lib -lmlx -L libft/ -lft 
 FRWR = -framework OpenGL -framework OpenCL -framework AppKit
 OBJS = $(addprefix objects/, $(SRC:.c=.o))
 OBJDIR = objects
