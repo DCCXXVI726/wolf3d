@@ -15,8 +15,8 @@
 static char	*check_parametrs(int ac, char *av[])
 {
 	char *map_name;
-	
-	if (ac != 2 || ac != 1)
+
+	if (ac != 2)
 		check_error_n_exit(1, "Usage ./wolf3d FILE_MAP");
 	if (ac == 1)
 		map_name = ft_strdup("map");
@@ -25,10 +25,10 @@ static char	*check_parametrs(int ac, char *av[])
 	return (map_name);
 }
 
-int	main(int ac, char *av[])
+int			main(int ac, char *av[])
 {
 	t_wolf	*wolf;
-	char 	*map_name;
+	char	*map_name;
 
 	map_name = check_parametrs(ac, &av[1]);
 	wolf = create_struct(map_name);

@@ -117,4 +117,5 @@ void				find_orientation_p(t_orientation *orientation,
 void				find_orientation_p2(t_orientation *orientation,
 										t_wolf *wolf);
 void				get_p(t_wolf *wolf, t_main_window *window);
+void				check_map(t_wolf *wolf);
 #endif

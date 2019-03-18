@@ -12,19 +12,19 @@
 
 #include "wolf3d.h"
 
-static int	is_wall(t_wolf * wolf, double y_change, double x_change)
+static int	is_wall(t_wolf *wolf, double y_change, double x_change)
 {
-	if (wolf->map[(int)(wolf->player->y + y_change + 0.2) * wolf->width
-			                + (int)(wolf->player->x + x_change + 0.2)] != '0')
+	if (wolf->map[(int)(wolf->player->y + y_change + 0.2) * wolf->width +
+		(int)(wolf->player->x + x_change + 0.2)] != '0')
 		return (1);
-	if (wolf->map[(int)(wolf->player->y + y_change - 0.2) * wolf->width
-			+ (int)(wolf->player->x + x_change + 0.2)] != '0')
+	if (wolf->map[(int)(wolf->player->y + y_change - 0.2) * wolf->width +
+		(int)(wolf->player->x + x_change + 0.2)] != '0')
 		return (1);
-	if (wolf->map[(int)(wolf->player->y + y_change + 0.2) * wolf->width
-			+ (int)(wolf->player->x + x_change - 0.2)] != '0')
+	if (wolf->map[(int)(wolf->player->y + y_change + 0.2) * wolf->width +
+		(int)(wolf->player->x + x_change - 0.2)] != '0')
 		return (1);
-	if (wolf->map[(int)(wolf->player->y + y_change - 0.2) * wolf->width
-			+ (int)(wolf->player->x + x_change - 0.2)] != '0')
+	if (wolf->map[(int)(wolf->player->y + y_change - 0.2) * wolf->width +
+		(int)(wolf->player->x + x_change - 0.2)] != '0')
 		return (1);
 	return (0);
 }
@@ -108,9 +108,9 @@ void		moving(t_wolf *wolf)
 	}
 	if (wolf->move_back == 1)
 	{
-		if (is_wall(wolf,  0, -1 * x_change) == 0)
+		if (is_wall(wolf, 0, -1 * x_change) == 0)
 			wolf->player->x -= x_change;
-		if (is_wall(wolf,  y_change, 0) == 0)
+		if (is_wall(wolf, y_change, 0) == 0)
 			wolf->player->y += y_change;
 	}
 	moving_left_right(wolf, x_change, y_change);

@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-void		define_wall(t_wolf *wolf)
+void	define_wall(t_wolf *wolf)
 {
 	if (wolf->orientation == 1)
 		wolf->curr_tx = wolf->tx;
@@ -24,7 +24,7 @@ void		define_wall(t_wolf *wolf)
 		wolf->curr_tx = wolf->tx + 4;
 }
 
-void		define_color(t_wolf *wolf, t_main_window *window)
+void	define_color(t_wolf *wolf, t_main_window *window)
 {
 	if (window->y < wolf->line_horizon - window->p / 2)
 		window->color = 0xFFFFFF;
@@ -36,7 +36,7 @@ void		define_color(t_wolf *wolf, t_main_window *window)
 		window->color = 0x666666;
 }
 
-void		find_orientation_p(t_orientation *orientation, t_wolf *wolf)
+void	find_orientation_p(t_orientation *orientation, t_wolf *wolf)
 {
 	while (orientation->x >= 0 && orientation->x < wolf->width &&
 		orientation->y >= 0 && orientation->y < wolf->heigth &&
@@ -80,4 +80,29 @@ void	find_orientation_p2(t_orientation *orientation, t_wolf *wolf)
 		orientation->y = orientation->y - orientation->y_step;
 		orientation->x = orientation->x + orientation->x_step;
 	}
+}
+
+void	check_map(t_wolf *wolf)
+{
+	int i;
+
+	i = 0;
+	if (ft_strlen(wolf->map) == 0)
+		check_error_n_exit(1, "Empty file");
+	while (wolf->map[i])
+	{
+		if ((i / wolf->width == 0 ||
+			i % wolf->width == 0 ||
+			i / wolf->width == wolf->heigth - 1 ||
+			i % wolf->width == wolf->width - 1) &&
+			wolf->map[i] != '1')
+			check_error_n_exit(1, "Invalid map border");
+		i++;
+	}
+	if (wolf->map[(int)(wolf->player->y * wolf->width +
+		wolf->player->x)] != '0')
+		check_error_n_exit(1, "Invalid player position");
+	if (wolf->player->x - (int)(wolf->player->x) != 0.5 ||
+		wolf->player->y - (int)(wolf->player->y) != 0.5)
+		check_error_n_exit(1, "Player position must be in center of block");
 }
