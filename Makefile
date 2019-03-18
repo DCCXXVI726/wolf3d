@@ -14,8 +14,8 @@ NAME = wolf3d
 FLAG = -Wall -Wextra -Werror -g
 SRC = create_struct.c hook.c put_img.c key_hook.c mouse_hook.c main.c move.c menu.c utils.c get_position.c
 INC = -I /usr/local/include -I libft/ -I ./includes
-LIB = -L /usr/local/lib -lmlx -L libft/ -lft 
-FRWR = -framework OpenGL -framework OpenCL -framework AppKit
+LIB = -L /usr/local/lib -lmlx -L libft/ -lft
+FRWR = -framework OpenGL -framework AppKit
 OBJS = $(addprefix objects/, $(SRC:.c=.o))
 OBJDIR = objects
 SRCDIR = src
