@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 17:41:41 by bfalmer-          #+#    #+#             */
-/*   Updated: 2019/03/14 14:44:12 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/19 16:30:12 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void	check_map(t_wolf *wolf)
 			check_error_n_exit(1, "Invalid map border");
 		i++;
 	}
-	if (wolf->map[(int)(wolf->player->y * wolf->width +
-		wolf->player->x)] != '0')
+	if (wolf->map[(int)(wolf->player->y) * wolf->width +
+		(int)wolf->player->x] != '0')
 		check_error_n_exit(1, "Invalid player position");
 	if (wolf->player->x - (int)(wolf->player->x) != 0.5 ||
 		wolf->player->y - (int)(wolf->player->y) != 0.5)
