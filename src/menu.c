@@ -6,7 +6,7 @@
 /*   By: bfalmer- <bfalmer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 15:48:36 by bfalmer-          #+#    #+#             */
-/*   Updated: 2019/03/13 16:46:27 by bfalmer-         ###   ########.fr       */
+/*   Updated: 2019/03/19 19:48:36 by bfalmer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,18 @@ int			add_text(t_wolf *wolf)
 			"FOV");
 		put_string(wolf, wolf->win_width / 12 * 2, wolf->win_heidth / 100 * 30,
 			buff = ft_itoa(wolf->fov[(int)(wolf->fov[0])] / 3.14 * 180));
+		free(buff);
 		put_string(wolf, wolf->win_width / 12, wolf->win_heidth / 100 * 42,
 			"Mouse speed");
 		put_string(wolf, wolf->win_width / 12 * 2, wolf->win_heidth / 100 * 42,
 			buff = ft_itoa(wolf->mouse_speed[wolf->mouse_speed[0]]));
+		free(buff);
 		put_string(wolf, wolf->win_width / 12, wolf->win_heidth / 100 * 55,
 			"- - -");
 		put_string(wolf, wolf->win_width / 12, wolf->win_heidth / 100 * 68,
 			"- - -");
 		put_string(wolf, wolf->win_width / 12, wolf->win_heidth / 100 * 78,
 			"(c.)");
-		free(buff);
 	}
 	return (0);
 }
